@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bali — Hayalimdeki Tatil</title>
+    <meta name="description" content="Bali'nin büyüleyici güzelliklerini keşfedin. Tropik çiçekler, pirinç terasları ve cennet adası.">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --cream: #f5f0e8;
+            --dark-green: #2d4a2d;
+            --olive: #6b7c45;
+            --gold: #c4a44a;
+            --pink: #d4727a;
+            --deep-pink: #c2485b;
+            --text: #3a3a2e;
+            --light-olive: #e8e4d4;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Cormorant Garamond', serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: rgba(245,240,232,0.92); backdrop-filter: blur(12px);
+            border-bottom: 1.5px solid var(--olive);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.6rem 3rem; transition: all 0.4s;
+        }
+        .navbar.scrolled { padding: 0.4rem 3rem; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+        .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--dark-green); letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            text-decoration: none; color: var(--dark-green); font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
+            position: relative; transition: color 0.3s;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1.5px;
+            background: var(--gold); transition: width 0.3s;
+        }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a:hover::after { width: 100%; }
+        .bali-time {
+            background: var(--dark-green); color: var(--cream); padding: 0.4rem 1rem;
+            border-radius: 20px; font-family: 'Outfit', sans-serif; font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+        .hamburger span { width: 24px; height: 2px; background: var(--dark-green); transition: 0.3s; }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden; padding: 6rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--cream) 0%, #ede8d8 50%, #e6dfcf 100%);
+        }
+        .hero-content { text-align: center; z-index: 10; max-width: 700px; }
+        .hero-subtitle {
+            font-family: 'Outfit', sans-serif; font-size: 0.9rem; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--olive); margin-bottom: 1rem; opacity: 0;
+        }
+        .hero-title {
+            font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 900; color: var(--dark-green); line-height: 1.1; margin-bottom: 1.5rem; opacity: 0;
+        }
+        .hero-title span { color: var(--gold); font-style: italic; }
+        .hero-desc {
+            font-size: 1.15rem; color: var(--text); max-width: 500px; margin: 0 auto 2rem;
+            line-height: 1.8; font-weight: 300; opacity: 0;
+        }
+        .hero-btn {
+            display: inline-block; padding: 0.9rem 2.5rem; border: 2px solid var(--dark-green);
+            color: var(--dark-green); text-decoration: none; font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase;
+            border-radius: 30px; transition: all 0.4s; cursor: pointer; opacity: 0; background: transparent;
+        }
+        .hero-btn:hover { background: var(--dark-green); color: var(--cream); transform: scale(1.05); }
+
+        /* FLOWER DECORATIONS */
+        .flower {
+            position: absolute; z-index: 5; pointer-events: none;
+            opacity: 0; will-change: transform, opacity;
+        }
+        .flower img { width: 100%; height: 100%; object-fit: contain; }
+        .flower-1 { top: 0%; left: -5%; width: 440px; }
+        .flower-2 { top: 0%; right: -5%; width: 420px; transform: scaleX(-1); }
+        .flower-3 { bottom: 2%; left: -3%; width: 360px; }
+        .flower-4 { bottom: 0; right: -3%; width: 380px; transform: scaleX(-1); }
+        .flower-5 { top: 30%; left: -2%; width: 300px; }
+        .flower-6 { top: 35%; right: -2%; width: 280px; transform: scaleX(-1); }
+        .flower-7 { bottom: 15%; right: 8%; width: 200px; }
+        .flower-8 { top: 15%; left: 5%; width: 220px; }
+
+        /* LANDSCAPE SECTION */
+        .landscape {
+            position: relative; width: 100%; overflow: hidden;
+        }
+        .landscape img {
+            width: 100%; height: 70vh; object-fit: cover; display: block;
+        }
+        .landscape-overlay {
+            position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
+        }
+        .landscape-text {
+            font-family: 'Playfair Display', serif; color: white; font-size: clamp(2rem, 5vw, 4rem);
+            letter-spacing: 8px; text-transform: uppercase; text-shadow: 0 2px 30px rgba(0,0,0,0.5);
+            opacity: 0;
+        }
+
+        /* PLANNING SECTION */
+        .planning {
+            padding: 5rem 2rem; position: relative; overflow: hidden;
+            background: linear-gradient(180deg, var(--cream), #ede8d8);
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem);
+            text-align: center; color: var(--dark-green); margin-bottom: 3rem; font-weight: 700;
+        }
+        .steps-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem; max-width: 1100px; margin: 0 auto;
+        }
+        .step-card {
+            background: rgba(255,255,255,0.7); border: 1.5px solid var(--olive);
+            border-radius: 12px; padding: 2rem; position: relative;
+            transition: transform 0.3s, box-shadow 0.3s; opacity: 0;
+        }
+        .step-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .step-number {
+            position: absolute; top: -18px; left: 24px;
+            width: 36px; height: 36px; background: var(--olive); color: var(--cream);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.1rem;
+        }
+        .step-card h3 {
+            font-family: 'Playfair Display', serif; font-size: 1.3rem;
+            margin-bottom: 1rem; color: var(--dark-green); text-transform: uppercase; letter-spacing: 1px;
+        }
+        .step-card ul { list-style: none; padding: 0; }
+        .step-card li {
+            padding: 0.4rem 0; font-size: 0.95rem; color: var(--text);
+            padding-left: 1.2rem; position: relative;
+        }
+        .step-card li::before {
+            content: '🌿'; position: absolute; left: 0; font-size: 0.7rem;
+        }
+
+        /* TODO LIST */
+        .todo-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(180deg, #ede8d8, var(--cream));
+            position: relative; overflow: hidden;
+        }
+        .todo-container {
+            max-width: 700px; margin: 0 auto;
+            background: rgba(255,255,255,0.8); border: 1.5px solid var(--olive);
+            border-radius: 16px; padding: 2.5rem; position: relative;
+        }
+        .todo-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;
+        }
+        .todo-header h2 {
+            font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--dark-green);
+        }
+        .todo-tabs { display: flex; gap: 0.5rem; }
+        .todo-tab {
+            padding: 0.4rem 1rem; border: 1.5px solid var(--olive); background: transparent;
+            border-radius: 20px; cursor: pointer; font-family: 'Outfit', sans-serif;
+            font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase;
+            transition: all 0.3s; color: var(--dark-green);
+        }
+        .todo-tab.active { background: var(--dark-green); color: var(--cream); }
+        .todo-input-wrap {
+            display: flex; gap: 0.8rem; margin-bottom: 1.5rem;
+        }
+        .todo-input {
+            flex: 1; padding: 0.8rem 1.2rem; border: 1.5px solid #ccc;
+            border-radius: 25px; font-family: 'Cormorant Garamond', serif; font-size: 1rem;
+            background: rgba(255,255,255,0.9); outline: none; transition: border-color 0.3s;
+        }
+        .todo-input:focus { border-color: var(--olive); }
+        .todo-add-btn {
+            padding: 0.8rem 1.5rem; background: var(--dark-green); color: var(--cream);
+            border: none; border-radius: 25px; cursor: pointer; font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s;
+        }
+        .todo-add-btn:hover { background: var(--olive); transform: scale(1.05); }
+        .todo-list { list-style: none; }
+        .todo-item {
+            display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(107,124,69,0.15); transition: opacity 0.3s;
+        }
+        .todo-item.done .todo-text { text-decoration: line-through; opacity: 0.5; }
+        .todo-checkbox {
+            width: 22px; height: 22px; border: 2px solid var(--olive); border-radius: 50%;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; flex-shrink: 0; background: transparent;
+        }
+        .todo-checkbox.checked { background: var(--olive); }
+        .todo-checkbox.checked::after { content: '✓'; color: white; font-size: 0.7rem; }
+        .todo-text { flex: 1; font-size: 1.05rem; }
+        .todo-delete {
+            background: none; border: none; color: var(--pink); cursor: pointer;
+            font-size: 1.2rem; opacity: 0.4; transition: opacity 0.3s;
+        }
+        .todo-delete:hover { opacity: 1; }
+        .todo-empty {
+            text-align: center; padding: 2rem; color: var(--olive); font-style: italic; font-size: 1.1rem;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--dark-green); color: var(--cream); text-align: center;
+            padding: 2.5rem; font-family: 'Outfit', sans-serif; font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+        footer .footer-flower { font-size: 1.5rem; margin-bottom: 0.5rem; }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .navbar { padding: 0.5rem 1.5rem; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: rgba(245,240,232,0.97); padding: 1rem 1.5rem; gap: 1rem; border-bottom: 1.5px solid var(--olive); }
+            .nav-links.open { display: flex; }
+            .hamburger { display: flex; }
+            .bali-time { display: none; }
+            .flower-1, .flower-2 { width: 220px; }
+            .flower-3, .flower-4 { width: 190px; }
+            .flower-5, .flower-6 { width: 160px; }
+            .flower-7, .flower-8 { width: 120px; }
+            .landscape img { height: 45vh; }
+            .todo-input-wrap { flex-direction: column; }
+            .todo-add-btn { width: 100%; }
+            .planning { padding: 3rem 1rem; }
+            .todo-section { padding: 3rem 1rem; }
+            .todo-container { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+    <div class="nav-logo">🌺 BALi</div>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#hero">Ana Sayfa</a></li>
+        <li><a href="#landscape">Keşfet</a></li>
+        <li><a href="#planning">Planlama</a></li>
+        <li><a href="#todo">Listem</a></li>
+        <li><a href="#footer">İletişim</a></li>
+    </ul>
+    <div class="bali-time" id="baliTime">Bali Saati: --:--</div>
+    <button class="hamburger" id="hamburger" aria-label="Menü">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+    <!-- Flowers -->
+    <div class="flower flower-1"><img src="images/plant.png" alt="Tropik yapraklar"></div>
+    <div class="flower flower-2"><img src="images/plant2.png" alt="Tropik yapraklar"></div>
+    <div class="flower flower-3"><img src="images/flower.png" alt="Hibiskus çiçeği"></div>
+    <div class="flower flower-4"><img src="images/flower3.png" alt="Frangipani çiçeği"></div>
+    <div class="flower flower-5"><img src="images/beverage.png" alt="İçecek"></div>
+    <div class="flower flower-6"><img src="images/flower2.png" alt="Hibiskus çiçeği"></div>
+    <div class="flower flower-7"><img src="images/flower4.png" alt="Beyaz Frangipani"></div>
+    <div class="flower flower-8"><img src="images/flowers.png" alt="Pembe Plumeria"></div>
+
+    <div class="hero-content">
+        <p class="hero-subtitle">Hayalimdeki Tatil Lokasyonu</p>
+        <h1 class="hero-title">Selamat Datang<br><span>Bali'ye Hoş Geldiniz!</span></h1>
+        <p class="hero-desc">Bali… dünyanın en büyüleyici adasında tropikal ormanlar, antik tapınaklar ve turkuaz sahiller sizi bekliyor.</p>
+        <a href="#planning" class="hero-btn">Keşfetmeye Başla</a>
+    </div>
+</section>
+
+<!-- LANDSCAPE -->
+<section class="landscape" id="landscape">
+    <img src="images/bali-hero.png" alt="Bali pirinç terasları ve tapınak manzarası">
+    <div class="landscape-overlay">
+        <h2 class="landscape-text">Tanrıların Adası</h2>
+    </div>
+</section>
+
+<!-- PLANNING -->
+<section class="planning" id="planning">
+    <h2 class="section-title">🌴 Bali Tatili Nasıl Planlanır?</h2>
+    <div class="steps-grid">
+        <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Bölge Seç</h3>
+            <ul>
+                <li>Ubud — Kültür & Doğa</li>
+                <li>Seminyak — Plaj & Eğlence</li>
+                <li>Uluwatu — Sörf & Manzara</li>
+                <li>Nusa Penida — Macera</li>
+                <li>Canggu — Dijital Göçebe</li>
+            </ul>
+        </div>
+        <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Konaklama Bul</h3>
+            <ul>
+                <li>Villa & Özel Havuz</li>
+                <li>Butik Oteller</li>
+                <li>Pirinç Teras Bungalov</li>
+                <li>Beach Resort</li>
+                <li>Hostel & Guesthouse</li>
+            </ul>
+        </div>
+        <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Aktivite Planla</h3>
+            <ul>
+                <li>Tapınak Turları</li>
+                <li>Sörf Dersleri</li>
+                <li>Pirinç Terası Yürüyüşü</li>
+                <li>Dalış & Şnorkel</li>
+                <li>Yoga & Spa Retreat</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- TODO LIST -->
+<section class="todo-section" id="todo">
+    <div class="todo-container">
+        <div class="todo-header">
+            <h2>📋 Tatil Listem</h2>
+            <div class="todo-tabs">
+                <button class="todo-tab active" data-tab="bavul" id="tabBavul">Bavulum</button>
+                <button class="todo-tab" data-tab="gezilecek" id="tabGezilecek">Gezilecek</button>
+            </div>
+        </div>
+        <div class="todo-input-wrap">
+            <input type="text" class="todo-input" id="todoInput" placeholder="Yeni öğe ekle...">
+            <button class="todo-add-btn" id="todoAddBtn">+ Ekle</button>
+        </div>
+        <ul class="todo-list" id="todoList"></ul>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+    <div class="footer-flower">🌺🌿🌸</div>
+    <p>Bali Tatil Hayalim — 2026</p>
+    <p style="margin-top:0.3rem;opacity:0.6;">Coderspace Yarışması</p>
+</footer>
+
+<script>
+/* ========== BALI TIME ========== */
+function updateBaliTime() {
+    const now = new Date();
+    const bali = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Makassar' }));
+    const h = String(bali.getHours()).padStart(2, '0');
+    const m = String(bali.getMinutes()).padStart(2, '0');
+    document.getElementById('baliTime').textContent = 'Bali Saati: ' + h + ':' + m;
+}
+updateBaliTime();
+setInterval(updateBaliTime, 30000);
+
+/* ========== NAVBAR SCROLL & HAMBURGER ========== */
+window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+});
+document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+});
+
+/* ========== GSAP ANIMATIONS ========== */
+gsap.registerPlugin(ScrollTrigger);
+
+// Hero content
+const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+tl.to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.8, delay: 0.3 })
+  .to('.hero-title', { opacity: 1, y: 0, duration: 1 }, '-=0.4')
+  .to('.hero-desc', { opacity: 1, y: 0, duration: 0.8 }, '-=0.5')
+  .to('.hero-btn', { opacity: 1, y: 0, duration: 0.6 }, '-=0.3');
+
+// Set initial states
+gsap.set(['.hero-subtitle', '.hero-title', '.hero-desc', '.hero-btn'], { y: 30 });
+
+// Flowers entrance animation
+gsap.to('.flower-1', { opacity: 1, x: 0, duration: 1.5, delay: 0.5, ease: 'power2.out' });
+gsap.set('.flower-1', { x: -120 });
+gsap.to('.flower-2', { opacity: 1, x: 0, duration: 1.5, delay: 0.7, ease: 'power2.out' });
+gsap.set('.flower-2', { x: 120 });
+gsap.to('.flower-3', { opacity: 1, x: 0, duration: 1.3, delay: 1.0, ease: 'power2.out' });
+gsap.set('.flower-3', { x: -100 });
+gsap.to('.flower-4', { opacity: 1, x: 0, duration: 1.3, delay: 1.2, ease: 'power2.out' });
+gsap.set('.flower-4', { x: 100 });
+gsap.to('.flower-5', { opacity: 1, x: 0, rotation: 5, duration: 1.4, delay: 1.4, ease: 'power2.out' });
+gsap.set('.flower-5', { x: -80 });
+gsap.to('.flower-6', { opacity: 1, x: 0, rotation: -5, duration: 1.4, delay: 1.6, ease: 'power2.out' });
+gsap.set('.flower-6', { x: 80 });
+gsap.to('.flower-7', { opacity: 1, y: 0, rotation: 10, duration: 1.5, delay: 1.8, ease: 'power2.out' });
+gsap.set('.flower-7', { y: 60 });
+gsap.to('.flower-8', { opacity: 1, y: 0, rotation: -8, duration: 1.5, delay: 2.0, ease: 'power2.out' });
+gsap.set('.flower-8', { y: -60 });
+
+// Landscape text
+gsap.to('.landscape-text', {
+    opacity: 1, y: 0, duration: 1.2,
+    scrollTrigger: { trigger: '.landscape', start: 'top 70%' }
+});
+gsap.set('.landscape-text', { y: 40 });
+
+// Step cards
+gsap.utils.toArray('.step-card').forEach((card, i) => {
+    gsap.to(card, {
+        opacity: 1, y: 0, duration: 0.8, delay: i * 0.2,
+        scrollTrigger: { trigger: card, start: 'top 85%' }
+    });
+    gsap.set(card, { y: 40 });
+});
+
+/* ========== TODO LIST ========== */
+const defaultItems = {
+    bavul: [
+        { text: 'Güneş kremi SPF 50+', done: false },
+        { text: 'Yüzme gözlüğü & mayo', done: false },
+        { text: 'Hafif yazlık kıyafetler', done: false },
+        { text: 'Pasaport & vize belgeleri', done: false },
+        { text: 'Şarj aleti & adaptör', done: false }
+    ],
+    gezilecek: [
+        { text: 'Tanah Lot Tapınağı', done: false },
+        { text: 'Ubud Pirinç Terasları', done: false },
+        { text: 'Uluwatu Gün Batımı', done: false },
+        { text: 'Tegallalang Ormanı', done: false },
+        { text: 'Nusa Penida Günübirlik', done: false }
+    ]
+};
+
+let currentTab = 'bavul';
+let todos = JSON.parse(localStorage.getItem('baliTodos')) || JSON.parse(JSON.stringify(defaultItems));
+
+function saveTodos() { localStorage.setItem('baliTodos', JSON.stringify(todos)); }
+
+function renderTodos() {
+    const list = document.getElementById('todoList');
+    const items = todos[currentTab] || [];
+    if (!items.length) {
+        list.innerHTML = '<li class="todo-empty">Henüz öğe eklenmedi 🌺</li>';
+        return;
+    }
+    list.innerHTML = items.map((item, i) => 
+        '<li class="todo-item' + (item.done ? ' done' : '') + '">' +
+        '<div class="todo-checkbox' + (item.done ? ' checked' : '') + '" data-i="' + i + '"></div>' +
+        '<span class="todo-text">' + item.text + '</span>' +
+        '<button class="todo-delete" data-i="' + i + '">✕</button></li>'
+    ).join('');
+}
+
+document.getElementById('todoList').addEventListener('click', (e) => {
+    const idx = parseInt(e.target.dataset.i);
+    if (isNaN(idx)) return;
+    if (e.target.classList.contains('todo-checkbox') || e.target.closest('.todo-checkbox')) {
+        todos[currentTab][idx].done = !todos[currentTab][idx].done;
+    } else if (e.target.classList.contains('todo-delete')) {
+        todos[currentTab].splice(idx, 1);
+    }
+    saveTodos(); renderTodos();
+});
+
+document.querySelectorAll('.todo-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('.todo-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentTab = tab.dataset.tab;
+        renderTodos();
+    });
+});
+
+function addTodo() {
+    const input = document.getElementById('todoInput');
+    const val = input.value.trim();
+    if (!val) return;
+    if (!todos[currentTab]) todos[currentTab] = [];
+    todos[currentTab].push({ text: val, done: false });
+    input.value = '';
+    saveTodos(); renderTodos();
+}
+document.getElementById('todoAddBtn').addEventListener('click', addTodo);
+document.getElementById('todoInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') addTodo(); });
+
+renderTodos();
+</script>
+</body>
+</html>
