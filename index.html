@@ -1,497 +1,1425 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bali — Hayalimdeki Tatil</title>
-    <meta name="description" content="Bali'nin büyüleyici güzelliklerini keşfedin. Tropik çiçekler, pirinç terasları ve cennet adası.">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Bali — Luxury Tropical Retreat</title>
+    <meta name="description"
+        content="Bali'nin büyüleyici güzelliklerini keşfedin. Lüks, huzur ve eşsiz bir doğa deneyimi.">
+    <!-- Google Fonts: Cormorant & Montserrat -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <!-- GSAP for Smooth Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --cream: #f5f0e8;
-            --dark-green: #2d4a2d;
-            --olive: #6b7c45;
-            --gold: #c4a44a;
-            --pink: #d4727a;
-            --deep-pink: #c2485b;
-            --text: #3a3a2e;
-            --light-olive: #e8e4d4;
-        }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Cormorant Garamond', serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+            /* Luxury Tropical Palette */
+            --bg-light: #FAFAF9;
+            /* Warm Stone/White */
+            --bg-dark: #1C2B23;
+            /* Deep Forest Green */
+            --accent-gold: #f6de7e;
+            /* Vibrant Yellow */
+            --accent-hover: #FDE047;
+            /* Lighter Vibrant Yellow */
+            --text-dark: #0C0A09;
+            --text-light: #F5F2EB;
+            --glass-bg: rgba(250, 250, 249, 0.6);
+            --glass-border: rgba(28, 43, 35, 0.08);
+            --glass-dark: rgba(28, 43, 35, 0.4);
 
-        /* NAVBAR */
+            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .serif {
+            font-family: 'Cormorant', serif;
+        }
+
+        /* LIQUID GLASS NAVBAR */
         .navbar {
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: rgba(245,240,232,0.92); backdrop-filter: blur(12px);
-            border-bottom: 1.5px solid var(--olive);
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0.6rem 3rem; transition: all 0.4s;
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-radius: 100px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+            transition: var(--transition-smooth);
         }
-        .navbar.scrolled { padding: 0.4rem 3rem; box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
-        .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--dark-green); letter-spacing: 2px; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a {
-            text-decoration: none; color: var(--dark-green); font-family: 'Outfit', sans-serif;
-            font-size: 0.85rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
-            position: relative; transition: color 0.3s;
-        }
-        .nav-links a::after {
-            content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1.5px;
-            background: var(--gold); transition: width 0.3s;
-        }
-        .nav-links a:hover { color: var(--gold); }
-        .nav-links a:hover::after { width: 100%; }
-        .bali-time {
-            background: var(--dark-green); color: var(--cream); padding: 0.4rem 1rem;
-            border-radius: 20px; font-family: 'Outfit', sans-serif; font-size: 0.75rem;
-            letter-spacing: 1px;
-        }
-        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
-        .hamburger span { width: 24px; height: 2px; background: var(--dark-green); transition: 0.3s; }
 
-        /* HERO */
+        .navbar.scrolled {
+            top: 1rem;
+            width: 95%;
+            background: rgba(250, 250, 249, 0.85);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--bg-dark);
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-gold);
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .bali-time {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--bg-dark);
+        }
+
+        /* HERO SECTION */
         .hero {
-            min-height: 100vh; display: flex; align-items: center; justify-content: center;
-            position: relative; overflow: hidden; padding: 6rem 2rem 4rem;
-            background: linear-gradient(135deg, var(--cream) 0%, #ede8d8 50%, #e6dfcf 100%);
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            overflow: hidden;
+            background: var(--bg-light);
         }
-        .hero-content { text-align: center; z-index: 10; max-width: 700px; }
-        .hero-subtitle {
-            font-family: 'Outfit', sans-serif; font-size: 0.9rem; letter-spacing: 4px;
-            text-transform: uppercase; color: var(--olive); margin-bottom: 1rem; opacity: 0;
-        }
-        .hero-title {
-            font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 5.5rem);
-            font-weight: 900; color: var(--dark-green); line-height: 1.1; margin-bottom: 1.5rem; opacity: 0;
-        }
-        .hero-title span { color: var(--gold); font-style: italic; }
-        .hero-desc {
-            font-size: 1.15rem; color: var(--text); max-width: 500px; margin: 0 auto 2rem;
-            line-height: 1.8; font-weight: 300; opacity: 0;
-        }
-        .hero-btn {
-            display: inline-block; padding: 0.9rem 2.5rem; border: 2px solid var(--dark-green);
-            color: var(--dark-green); text-decoration: none; font-family: 'Outfit', sans-serif;
-            font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase;
-            border-radius: 30px; transition: all 0.4s; cursor: pointer; opacity: 0; background: transparent;
-        }
-        .hero-btn:hover { background: var(--dark-green); color: var(--cream); transform: scale(1.05); }
 
         /* FLOWER DECORATIONS */
         .flower {
-            position: absolute; z-index: 5; pointer-events: none;
-            opacity: 0; will-change: transform, opacity;
-        }
-        .flower img { width: 100%; height: 100%; object-fit: contain; }
-        .flower-1 { top: 0%; left: -5%; width: 440px; }
-        .flower-2 { top: 0%; right: -5%; width: 420px; transform: scaleX(-1); }
-        .flower-3 { bottom: 2%; left: -3%; width: 360px; }
-        .flower-4 { bottom: 0; right: -3%; width: 380px; transform: scaleX(-1); }
-        .flower-5 { top: 30%; left: -2%; width: 300px; }
-        .flower-6 { top: 35%; right: -2%; width: 280px; transform: scaleX(-1); }
-        .flower-7 { bottom: 15%; right: 8%; width: 200px; }
-        .flower-8 { top: 15%; left: 5%; width: 220px; }
-
-        /* LANDSCAPE SECTION */
-        .landscape {
-            position: relative; width: 100%; overflow: hidden;
-        }
-        .landscape img {
-            width: 100%; height: 70vh; object-fit: cover; display: block;
-        }
-        .landscape-overlay {
-            position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
-        }
-        .landscape-text {
-            font-family: 'Playfair Display', serif; color: white; font-size: clamp(2rem, 5vw, 4rem);
-            letter-spacing: 8px; text-transform: uppercase; text-shadow: 0 2px 30px rgba(0,0,0,0.5);
+            position: absolute;
+            z-index: 5;
+            pointer-events: none;
             opacity: 0;
+            will-change: transform, opacity;
+            filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15));
         }
 
-        /* PLANNING SECTION */
+        .flower img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .flower-1 {
+            top: -5%;
+            left: -5%;
+            width: 440px;
+            transform: scaleX(-1);
+        }
+
+        .flower-2 {
+            top: -15%;
+            right: -3%;
+            width: 420px;
+        }
+
+        .flower-3 {
+            bottom: -2%;
+            left: -3%;
+            width: 360px;
+        }
+
+        .flower-4 {
+            bottom: -5%;
+            right: -3%;
+            width: 450px;
+            transform: scaleX(-1);
+        }
+
+        .flower-5 {
+            top: 30%;
+            left: -1%;
+            width: 450px;
+        }
+
+        .flower-6 {
+            top: 35%;
+            right: -6%;
+            width: 350px;
+
+        }
+
+        .flower-7 {
+            bottom: 25%;
+            right: 8%;
+            width: 200px;
+        }
+
+        .flower-8 {
+            top: 15%;
+            left: 5%;
+            width: 220px;
+        }
+
+        @media (max-width: 768px) {
+            /* Mobilde çiçeklerin metinle çakışmasını önlemek için yerlerini buradan değiştirebilirsiniz */
+            .flower-1 { width: 300px; top: -5%; left: -5%; }
+            .flower-2 { width: 300px; top: -15%; right: -10%; }
+            
+            .flower-3 { width: 250px; bottom: -2%; left: -3%; }
+            .flower-4 { width: 250px; bottom: -5%; right: -3%; }
+            
+            .flower-5 { width: 200px; top: 57%; left: -1%; }
+            .flower-6 { width: 200px; top: 65%; right: -6%; }
+            
+            .flower-7 { width: 200px; bottom: 25%; right: 8%; }
+            .flower-8 { width: 200px; top: 15%; left: 5%; }
+        }
+
+        /* Abstract Liquid Glass Orbs */
+        .glass-orb {
+            display: none;
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(209, 177, 49, 0.4), rgba(28, 43, 35, 0.2));
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.6;
+            animation: float 20s infinite alternate ease-in-out;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            top: -100px;
+            left: -100px;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            bottom: -50px;
+            right: -50px;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            top: 30%;
+            left: 40%;
+            background: linear-gradient(135deg, rgba(28, 43, 35, 0.3), rgba(250, 250, 249, 0.1));
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(50px, 30px) scale(1.1);
+            }
+
+            100% {
+                transform: translate(-30px, -50px) scale(0.9);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .hero-subtitle {
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 500;
+            color: var(--bg-dark);
+            line-height: 1.05;
+            margin-bottom: 2rem;
+            text-transform: capitalize;
+        }
+
+        .hero-title span {
+            font-style: italic;
+            color: var(--accent-gold);
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            color: rgba(12, 10, 9, 0.7);
+            max-width: 500px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2.5rem;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 50px;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(250, 204, 21, 0.3);
+        }
+
+        /* MARQUEE BANNER */
+        .marquee-container {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+            padding: 1.5rem 0;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .marquee-content {
+            display: flex;
+            width: max-content;
+            animation: marquee 30s linear infinite;
+        }
+
+        .marquee-content span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            padding-right: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .marquee-content span i {
+            width: 20px;
+            height: 20px;
+        }
+
+        @keyframes marquee {
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* LANDSCAPE PARALLAX */
+        .landscape {
+            position: relative;
+            width: 100%;
+            height: 85vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .landscape-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .landscape-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(28, 43, 35, 0.8), rgba(28, 43, 35, 0.2));
+            z-index: 2;
+        }
+
+        .landscape-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .landscape-content h2 {
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 400;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .landscape-content h1 {
+            font-size: clamp(5rem, 12vw, 10rem);
+            font-weight: 600;
+            letter-spacing: 12px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            line-height: 1;
+            text-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            margin-top: -1rem;
+        }
+
+        .landscape-content p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+        }
+
+        /* ABOUT BALI SECTION (CUSTOM DESIGN) */
+        .about-bali {
+            display: flex;
+            min-height: 80vh;
+            background: var(--bg-light);
+            position: relative;
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        .about-left {
+            width: 50%;
+            padding: 10rem 4rem 4rem 10%;
+            /* Shifted down slightly */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .about-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(3.8rem, 6vw, 6rem);
+            font-weight: 400;
+            color: #f6de7e;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+        }
+
+        .about-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            color: #294c09;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 3.5rem;
+        }
+
+        .about-text p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #333;
+            font-weight: 400;
+            margin-bottom: 2rem;
+        }
+
+        .about-right {
+            width: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 4rem;
+        }
+
+        .about-stripes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(to right,
+                    rgb(246, 222, 126),
+                    rgb(246, 222, 126) 60px,
+                    #ffffff 60px,
+                    #ffffff 120px);
+            z-index: 0;
+        }
+
+        .about-polaroid {
+            background: #fff;
+            padding: 1.5rem 1.5rem 4rem 1.5rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transform: rotate(-4deg);
+            z-index: 1;
+            position: relative;
+            max-width: 95%;
+            border: 1px solid #eaeaea;
+        }
+
+        .polaroid-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .polaroid-clip {
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            color: #999;
+            transform: rotate(15deg);
+            stroke-width: 1;
+        }
+
+        .about-flower {
+            position: absolute;
+            bottom: 5%;
+            left: -20%;
+            width: 250px;
+            z-index: 2;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
+            transform: rotate(-15deg);
+            transition: transform 3s ease-in-out;
+            cursor: pointer;
+        }
+
+        .about-flower:hover {
+            transform: rotate(345deg);
+        }
+
+        @media (max-width: 992px) {
+            .about-bali {
+                flex-direction: column;
+            }
+
+            .about-left {
+                width: 100%;
+                padding: 4rem 1.5rem;
+            }
+
+            .about-right {
+                width: 100%;
+                min-height: 50vh;
+                padding: 2rem 1rem;
+            }
+
+            .about-polaroid {
+                max-width: 98%;
+                padding: 1rem 1rem 3rem 1rem;
+            }
+
+            .about-flower {
+                left: -2%;
+                width: 240px;
+                bottom: 2%;
+            }
+        }
+
+        /* PLANNING - GLASSMORPHISM BENTO GRID */
         .planning {
-            padding: 5rem 2rem; position: relative; overflow: hidden;
-            background: linear-gradient(180deg, var(--cream), #ede8d8);
-        }
-        .section-title {
-            font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem);
-            text-align: center; color: var(--dark-green); margin-bottom: 3rem; font-weight: 700;
-        }
-        .steps-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem; max-width: 1100px; margin: 0 auto;
-        }
-        .step-card {
-            background: rgba(255,255,255,0.7); border: 1.5px solid var(--olive);
-            border-radius: 12px; padding: 2rem; position: relative;
-            transition: transform 0.3s, box-shadow 0.3s; opacity: 0;
-        }
-        .step-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
-        .step-number {
-            position: absolute; top: -18px; left: 24px;
-            width: 36px; height: 36px; background: var(--olive); color: var(--cream);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.1rem;
-        }
-        .step-card h3 {
-            font-family: 'Playfair Display', serif; font-size: 1.3rem;
-            margin-bottom: 1rem; color: var(--dark-green); text-transform: uppercase; letter-spacing: 1px;
-        }
-        .step-card ul { list-style: none; padding: 0; }
-        .step-card li {
-            padding: 0.4rem 0; font-size: 0.95rem; color: var(--text);
-            padding-left: 1.2rem; position: relative;
-        }
-        .step-card li::before {
-            content: '🌿'; position: absolute; left: 0; font-size: 0.7rem;
+            padding: 8rem 2rem;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            position: relative;
         }
 
-        /* TODO LIST */
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--accent-gold);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .bento-card {
+            background: var(--glass-dark);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(250, 204, 21, 0.1), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(250, 204, 21, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .bento-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            color: var(--accent-gold);
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .bento-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .bento-card ul {
+            list-style: none;
+        }
+
+        .bento-card li {
+            padding: 0.8rem 0;
+            font-size: 0.95rem;
+            font-weight: 300;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .bento-card li:last-child {
+            border-bottom: none;
+        }
+
+        .bento-card li i {
+            color: var(--accent-gold);
+            width: 16px;
+            height: 16px;
+        }
+
+        /* TODO LIST MINIMAL */
         .todo-section {
-            padding: 5rem 2rem;
-            background: linear-gradient(180deg, #ede8d8, var(--cream));
-            position: relative; overflow: hidden;
+            padding: 8rem 2rem;
+            background: var(--bg-light);
+            position: relative;
         }
+
         .todo-container {
-            max-width: 700px; margin: 0 auto;
-            background: rgba(255,255,255,0.8); border: 1.5px solid var(--olive);
-            border-radius: 16px; padding: 2.5rem; position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 30px;
+            padding: 4rem;
+            box-shadow: 0 20px 60px rgba(28, 43, 35, 0.05);
+            border: 1px solid rgba(28, 43, 35, 0.05);
         }
+
         .todo-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 1.5rem;
         }
+
         .todo-header h2 {
-            font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--dark-green);
+            font-size: 2.5rem;
+            color: var(--bg-dark);
+            font-weight: 500;
         }
-        .todo-tabs { display: flex; gap: 0.5rem; }
+
+        .todo-tabs {
+            display: flex;
+            gap: 1rem;
+            background: var(--bg-light);
+            padding: 0.5rem;
+            border-radius: 50px;
+        }
+
         .todo-tab {
-            padding: 0.4rem 1rem; border: 1.5px solid var(--olive); background: transparent;
-            border-radius: 20px; cursor: pointer; font-family: 'Outfit', sans-serif;
-            font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase;
-            transition: all 0.3s; color: var(--dark-green);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            background: transparent;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(12, 10, 9, 0.5);
+            transition: var(--transition-smooth);
         }
-        .todo-tab.active { background: var(--dark-green); color: var(--cream); }
+
+        .todo-tab.active {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            box-shadow: 0 4px 15px rgba(28, 43, 35, 0.2);
+        }
+
         .todo-input-wrap {
-            display: flex; gap: 0.8rem; margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
+
         .todo-input {
-            flex: 1; padding: 0.8rem 1.2rem; border: 1.5px solid #ccc;
-            border-radius: 25px; font-family: 'Cormorant Garamond', serif; font-size: 1rem;
-            background: rgba(255,255,255,0.9); outline: none; transition: border-color 0.3s;
+            flex: 1;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            background: var(--bg-light);
+            outline: none;
+            transition: all 0.3s ease;
         }
-        .todo-input:focus { border-color: var(--olive); }
+
+        .todo-input:focus {
+            border-color: var(--accent-gold);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.1);
+        }
+
         .todo-add-btn {
-            padding: 0.8rem 1.5rem; background: var(--dark-green); color: var(--cream);
-            border: none; border-radius: 25px; cursor: pointer; font-family: 'Outfit', sans-serif;
-            font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s;
+            padding: 0 2rem;
+            background: var(--accent-gold);
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .todo-add-btn:hover { background: var(--olive); transform: scale(1.05); }
-        .todo-list { list-style: none; }
+
+        .todo-add-btn:hover {
+            background: var(--accent-hover);
+            transform: scale(1.02);
+        }
+
+        .todo-list {
+            list-style: none;
+        }
+
         .todo-item {
-            display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem 0;
-            border-bottom: 1px solid rgba(107,124,69,0.15); transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.2rem 1rem;
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            border-radius: 12px;
         }
-        .todo-item.done .todo-text { text-decoration: line-through; opacity: 0.5; }
+
+        .todo-item:hover {
+            background: var(--bg-light);
+        }
+
+        .todo-item.done .todo-text {
+            text-decoration: line-through;
+            opacity: 0.4;
+        }
+
         .todo-checkbox {
-            width: 22px; height: 22px; border: 2px solid var(--olive); border-radius: 50%;
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s; flex-shrink: 0; background: transparent;
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--bg-dark);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            background: transparent;
         }
-        .todo-checkbox.checked { background: var(--olive); }
-        .todo-checkbox.checked::after { content: '✓'; color: white; font-size: 0.7rem; }
-        .todo-text { flex: 1; font-size: 1.05rem; }
+
+        .todo-checkbox.checked {
+            background: var(--bg-dark);
+            border-color: var(--bg-dark);
+        }
+
+        .todo-checkbox i {
+            color: #fff;
+            width: 14px;
+            height: 14px;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.2s ease;
+        }
+
+        .todo-checkbox.checked i {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .todo-text {
+            flex: 1;
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
         .todo-delete {
-            background: none; border: none; color: var(--pink); cursor: pointer;
-            font-size: 1.2rem; opacity: 0.4; transition: opacity 0.3s;
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateX(10px);
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 8px;
         }
-        .todo-delete:hover { opacity: 1; }
+
+        .todo-item:hover .todo-delete {
+            opacity: 0.7;
+            transform: translateX(0);
+        }
+
+        .todo-delete:hover {
+            opacity: 1;
+            background: rgba(239, 68, 68, 0.1);
+        }
+
         .todo-empty {
-            text-align: center; padding: 2rem; color: var(--olive); font-style: italic; font-size: 1.1rem;
+            text-align: center;
+            padding: 3rem;
+            color: rgba(12, 10, 9, 0.4);
+            font-weight: 300;
+            font-style: italic;
         }
 
         /* FOOTER */
         footer {
-            background: var(--dark-green); color: var(--cream); text-align: center;
-            padding: 2.5rem; font-family: 'Outfit', sans-serif; font-size: 0.85rem;
+            background: var(--bg-dark);
+            color: rgba(245, 242, 235, 0.6);
+            text-align: center;
+            padding: 4rem 2rem;
+            font-size: 0.85rem;
             letter-spacing: 1px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
-        footer .footer-flower { font-size: 1.5rem; margin-bottom: 0.5rem; }
 
-        /* MOBILE */
+        .footer-logo {
+            font-family: 'Cormorant', serif;
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 992px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
-            .navbar { padding: 0.5rem 1.5rem; }
-            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: rgba(245,240,232,0.97); padding: 1rem 1.5rem; gap: 1rem; border-bottom: 1.5px solid var(--olive); }
-            .nav-links.open { display: flex; }
-            .hamburger { display: flex; }
-            .bali-time { display: none; }
-            .flower-1, .flower-2 { width: 220px; }
-            .flower-3, .flower-4 { width: 190px; }
-            .flower-5, .flower-6 { width: 160px; }
-            .flower-7, .flower-8 { width: 120px; }
-            .landscape img { height: 45vh; }
-            .todo-input-wrap { flex-direction: column; }
-            .todo-add-btn { width: 100%; }
-            .planning { padding: 3rem 1rem; }
-            .todo-section { padding: 3rem 1rem; }
-            .todo-container { padding: 1.5rem; }
+            .navbar {
+                width: 95%;
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 120%;
+                left: 0;
+                width: 100%;
+                background: var(--glass-bg);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                gap: 0;
+                border-radius: 20px;
+                overflow: hidden;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: var(--transition-smooth);
+                border: 1px solid var(--glass-border);
+            }
+
+            .nav-links.open {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .nav-links li a {
+                display: block;
+                padding: 1.5rem;
+                border-bottom: 1px solid var(--glass-border);
+                text-align: center;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .bali-time {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .todo-container {
+                padding: 2rem;
+            }
+
+            .todo-header {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: flex-start;
+            }
+
+            .todo-input-wrap {
+                flex-direction: column;
+            }
+
+            .todo-add-btn {
+                padding: 1.2rem;
+            }
+
+            .todo-item .todo-delete {
+                opacity: 0.7;
+                transform: translateX(0);
+            }
         }
     </style>
 </head>
+
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar" id="navbar">
-    <div class="nav-logo">🌺 BALi</div>
-    <ul class="nav-links" id="navLinks">
-        <li><a href="#hero">Ana Sayfa</a></li>
-        <li><a href="#landscape">Keşfet</a></li>
-        <li><a href="#planning">Planlama</a></li>
-        <li><a href="#todo">Listem</a></li>
-        <li><a href="#footer">İletişim</a></li>
-    </ul>
-    <div class="bali-time" id="baliTime">Bali Saati: --:--</div>
-    <button class="hamburger" id="hamburger" aria-label="Menü">
-        <span></span><span></span><span></span>
-    </button>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="hero">
-    <!-- Flowers -->
-    <div class="flower flower-1"><img src="images/plant.png" alt="Tropik yapraklar"></div>
-    <div class="flower flower-2"><img src="images/plant2.png" alt="Tropik yapraklar"></div>
-    <div class="flower flower-3"><img src="images/flower.png" alt="Hibiskus çiçeği"></div>
-    <div class="flower flower-4"><img src="images/flower3.png" alt="Frangipani çiçeği"></div>
-    <div class="flower flower-5"><img src="images/beverage.png" alt="İçecek"></div>
-    <div class="flower flower-6"><img src="images/flower2.png" alt="Hibiskus çiçeği"></div>
-    <div class="flower flower-7"><img src="images/flower4.png" alt="Beyaz Frangipani"></div>
-    <div class="flower flower-8"><img src="images/flowers.png" alt="Pembe Plumeria"></div>
-
-    <div class="hero-content">
-        <p class="hero-subtitle">Hayalimdeki Tatil Lokasyonu</p>
-        <h1 class="hero-title">Selamat Datang<br><span>Bali'ye Hoş Geldiniz!</span></h1>
-        <p class="hero-desc">Bali… dünyanın en büyüleyici adasında tropikal ormanlar, antik tapınaklar ve turkuaz sahiller sizi bekliyor.</p>
-        <a href="#planning" class="hero-btn">Keşfetmeye Başla</a>
-    </div>
-</section>
-
-<!-- LANDSCAPE -->
-<section class="landscape" id="landscape">
-    <img src="images/bali-hero.png" alt="Bali pirinç terasları ve tapınak manzarası">
-    <div class="landscape-overlay">
-        <h2 class="landscape-text">Tanrıların Adası</h2>
-    </div>
-</section>
-
-<!-- PLANNING -->
-<section class="planning" id="planning">
-    <h2 class="section-title">🌴 Bali Tatili Nasıl Planlanır?</h2>
-    <div class="steps-grid">
-        <div class="step-card">
-            <div class="step-number">1</div>
-            <h3>Bölge Seç</h3>
-            <ul>
-                <li>Ubud — Kültür & Doğa</li>
-                <li>Seminyak — Plaj & Eğlence</li>
-                <li>Uluwatu — Sörf & Manzara</li>
-                <li>Nusa Penida — Macera</li>
-                <li>Canggu — Dijital Göçebe</li>
-            </ul>
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="nav-logo">
+            <i data-lucide="leaf"></i> BALI
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#hero">Keşfet</a></li>
+            <li><a href="#landscape">Deneyim</a></li>
+            <li><a href="#planning">Planlama</a></li>
+            <li><a href="#todo">Listem</a></li>
+        </ul>
+        <div class="bali-time" id="baliTime">
+            <i data-lucide="clock"></i> <span>--:--</span>
         </div>
-        <div class="step-card">
-            <div class="step-number">2</div>
-            <h3>Konaklama Bul</h3>
-            <ul>
-                <li>Villa & Özel Havuz</li>
-                <li>Butik Oteller</li>
-                <li>Pirinç Teras Bungalov</li>
-                <li>Beach Resort</li>
-                <li>Hostel & Guesthouse</li>
-            </ul>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <i data-lucide="menu"></i>
+        </button>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <!-- Liquid Glass Abstract Orbs -->
+        <div class="glass-orb orb-1"></div>
+        <div class="glass-orb orb-2"></div>
+        <div class="glass-orb orb-3"></div>
+
+        <!-- Flowers -->
+        <div class="flower flower-1"><img src="images/plant.png" alt="Tropik yapraklar"></div>
+        <div class="flower flower-6"><img src="images/plant2.png" alt="Tropik yapraklar"></div>
+        <div class="flower flower-3"><img src="images/flower.png" alt="Hibiskus çiçeği"></div>
+        <div class="flower flower-7"><img src="images/flower3.png" alt="Frangipani çiçeği"></div>
+        <div class="flower flower-5"><img src="images/beverage.png" alt="İçecek"></div>
+        <div class="flower flower-2"><img src="images/flower2.png" alt="Hibiskus çiçeği"></div>
+        <div class="flower flower-4"><img src="images/flowers.png" alt="Beyaz Frangipani"></div>
+        <div class="flower flower-8"><img src="images/flower4.png" alt="Pembe Plumeria"></div>
+
+        <div class="hero-content gs-reveal">
+            <p class="hero-subtitle">Mükemmel Tatil Sığınağı</p>
+            <h1 class="hero-title">Selamat Datang<br><span>Cennete Hoş Geldiniz</span></h1>
+            <p class="hero-desc">Tanrıların Adası'nın derin güzelliğini deneyimleyin. Yemyeşil ormanlar, antik
+                tapınaklar ve dingin plajlar ruhunuzu yeniden uyandırsın.</p>
+            <a href="#landscape" class="btn-primary">
+                Yolculuğa Başla <i data-lucide="arrow-right" style="width:18px"></i>
+            </a>
         </div>
-        <div class="step-card">
-            <div class="step-number">3</div>
-            <h3>Aktivite Planla</h3>
-            <ul>
-                <li>Tapınak Turları</li>
-                <li>Sörf Dersleri</li>
-                <li>Pirinç Terası Yürüyüşü</li>
-                <li>Dalış & Şnorkel</li>
-                <li>Yoga & Spa Retreat</li>
-            </ul>
+    </section>
+
+    <!-- SCROLLING MARQUEE BANNER -->
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <!-- 1. Yarı -->
+            <span>
+                LÜKS KONAKLAMA <i data-lucide="sparkles"></i>
+                ÖZEL VİLLALAR <i data-lucide="sparkles"></i>
+                TROPİK CENNET <i data-lucide="sparkles"></i>
+                SPA & WELLNESS <i data-lucide="sparkles"></i>
+                LÜKS KONAKLAMA <i data-lucide="sparkles"></i>
+                ÖZEL VİLLALAR <i data-lucide="sparkles"></i>
+                TROPİK CENNET <i data-lucide="sparkles"></i>
+                SPA & WELLNESS <i data-lucide="sparkles"></i>
+                LÜKS KONAKLAMA <i data-lucide="sparkles"></i>
+                ÖZEL VİLLALAR <i data-lucide="sparkles"></i>
+                TROPİK CENNET <i data-lucide="sparkles"></i>
+                SPA & WELLNESS <i data-lucide="sparkles"></i>
+            </span>
+            <!-- 2. Yarı (Kusursuz döngü için birebir kopya) -->
+            <span>
+                LÜKS KONAKLAMA <i data-lucide="sparkles"></i>
+                ÖZEL VİLLALAR <i data-lucide="sparkles"></i>
+                TROPİK CENNET <i data-lucide="sparkles"></i>
+                SPA & WELLNESS <i data-lucide="sparkles"></i>
+                LÜKS KONAKLAMA <i data-lucide="sparkles"></i>
+                ÖZEL VİLLALAR <i data-lucide="sparkles"></i>
+                TROPİK CENNET <i data-lucide="sparkles"></i>
+                SPA & WELLNESS <i data-lucide="sparkles"></i>
+                LÜKS KONAKLAMA <i data-lucide="sparkles"></i>
+                ÖZEL VİLLALAR <i data-lucide="sparkles"></i>
+                TROPİK CENNET <i data-lucide="sparkles"></i>
+                SPA & WELLNESS <i data-lucide="sparkles"></i>
+            </span>
         </div>
     </div>
-</section>
 
-<!-- TODO LIST -->
-<section class="todo-section" id="todo">
-    <div class="todo-container">
-        <div class="todo-header">
-            <h2>📋 Tatil Listem</h2>
-            <div class="todo-tabs">
-                <button class="todo-tab active" data-tab="bavul" id="tabBavul">Bavulum</button>
-                <button class="todo-tab" data-tab="gezilecek" id="tabGezilecek">Gezilecek</button>
+    <!-- LANDSCAPE PARALLAX -->
+    <section class="landscape" id="landscape">
+        <img src="images/forest.jpg" alt="Bali Rice Terraces" class="landscape-img" id="landscapeImg">
+        <div class="landscape-overlay"></div>
+        <div class="landscape-content gs-reveal">
+            <h2>Tanrıların Adası</h2>
+            <h1>Bali</h1>
+        </div>
+    </section>
+
+    <!-- ABOUT BALI SECTION -->
+    <section class="about-bali" id="about">
+        <div class="about-left gs-reveal">
+            <h2 class="about-title">Bali Hakkında</h2>
+            <p class="about-subtitle">BAZILARI ONA YERYÜZÜNDEKİ CENNET DER</p>
+            <div class="about-text">
+                <p>Bali, Endonezya takımadalarında yer alan büyüleyici bir adadır. Yemyeşil pirinç terasları, antik
+                    tapınakları ve tropik ormanlarıyla; kristal berraklığındaki suları, ruhani atmosferi ve sıcak Bali
+                    misafirperverliğiyle tanınan, kitle turizminin kaosundan uzak huzurlu bir kaçış noktasıdır.</p>
+                <p>Bu site, Bali'nin çarpıcı plajlarını, doğal güzelliklerini ve canlı kültürünü keşfederken en iyi
+                    rehberiniz olacak. Mutlaka görülmesi gereken yerlerden gizli kalmış cennetlere ve en iyi lezzet
+                    duraklarına kadar her şeyi gezinizi unutulmaz kılmak için bir araya getirdik.</p>
             </div>
         </div>
-        <div class="todo-input-wrap">
-            <input type="text" class="todo-input" id="todoInput" placeholder="Yeni öğe ekle...">
-            <button class="todo-add-btn" id="todoAddBtn">+ Ekle</button>
+        <div class="about-right gs-reveal">
+            <div class="about-stripes"></div>
+            <div class="about-polaroid">
+                <i data-lucide="paperclip" class="polaroid-clip"></i>
+                <img src="images/sea.jpg" alt="Bali Sea" class="polaroid-img">
+                <img src="images/flower.png" alt="Flower Decoration" class="about-flower">
+            </div>
         </div>
-        <ul class="todo-list" id="todoList"></ul>
-    </div>
-</section>
+    </section>
 
-<!-- FOOTER -->
-<footer id="footer">
-    <div class="footer-flower">🌺🌿🌸</div>
-    <p>Bali Tatil Hayalim — 2026</p>
-    <p style="margin-top:0.3rem;opacity:0.6;">Coderspace Yarışması</p>
-</footer>
+    <!-- PLANNING BENTO GRID -->
+    <section class="planning" id="planning">
+        <div class="section-header gs-reveal">
+            <p>Özel Deneyimler</p>
+            <h2>Tatilinizi Planlayın</h2>
+        </div>
 
-<script>
-/* ========== BALI TIME ========== */
-function updateBaliTime() {
-    const now = new Date();
-    const bali = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Makassar' }));
-    const h = String(bali.getHours()).padStart(2, '0');
-    const m = String(bali.getMinutes()).padStart(2, '0');
-    document.getElementById('baliTime').textContent = 'Bali Saati: ' + h + ':' + m;
-}
-updateBaliTime();
-setInterval(updateBaliTime, 30000);
+        <div class="bento-grid">
+            <div class="bento-card gs-reveal">
+                <div class="card-icon"><i data-lucide="map-pin" style="width: 32px; height: 32px;"></i></div>
+                <h3>Bölgeler</h3>
+                <ul>
+                    <li><i data-lucide="chevron-right"></i> Ubud — Kültür & Doğa</li>
+                    <li><i data-lucide="chevron-right"></i> Seminyak — Plaj & Eğlence</li>
+                    <li><i data-lucide="chevron-right"></i> Uluwatu — Sörf & Manzara</li>
+                    <li><i data-lucide="chevron-right"></i> Nusa Penida — Macera</li>
+                </ul>
+            </div>
 
-/* ========== NAVBAR SCROLL & HAMBURGER ========== */
-window.addEventListener('scroll', () => {
-    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
-});
-document.getElementById('hamburger').addEventListener('click', () => {
-    document.getElementById('navLinks').classList.toggle('open');
-});
+            <div class="bento-card gs-reveal">
+                <div class="card-icon"><i data-lucide="home" style="width: 32px; height: 32px;"></i></div>
+                <h3>Konaklama</h3>
+                <ul>
+                    <li><i data-lucide="chevron-right"></i> Özel Havuzlu Villalar</li>
+                    <li><i data-lucide="chevron-right"></i> Orman Bungalovları</li>
+                    <li><i data-lucide="chevron-right"></i> Uçurum Kenarı Otelleri</li>
+                    <li><i data-lucide="chevron-right"></i> Spa & Sağlık Merkezleri</li>
+                </ul>
+            </div>
 
-/* ========== GSAP ANIMATIONS ========== */
-gsap.registerPlugin(ScrollTrigger);
+            <div class="bento-card gs-reveal">
+                <div class="card-icon"><i data-lucide="compass" style="width: 32px; height: 32px;"></i></div>
+                <h3>Aktiviteler</h3>
+                <ul>
+                    <li><i data-lucide="chevron-right"></i> Antik Tapınak Turları</li>
+                    <li><i data-lucide="chevron-right"></i> Sabah Yoga Seansları</li>
+                    <li><i data-lucide="chevron-right"></i> Geleneksel Bali Spa</li>
+                    <li><i data-lucide="chevron-right"></i> Dalış & Şnorkel</li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
-// Hero content
-const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-tl.to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.8, delay: 0.3 })
-  .to('.hero-title', { opacity: 1, y: 0, duration: 1 }, '-=0.4')
-  .to('.hero-desc', { opacity: 1, y: 0, duration: 0.8 }, '-=0.5')
-  .to('.hero-btn', { opacity: 1, y: 0, duration: 0.6 }, '-=0.3');
+    <!-- TODO LIST -->
+    <section class="todo-section" id="todo">
+        <div class="todo-container gs-reveal">
+            <div class="todo-header">
+                <h2>Tatil Listem</h2>
+                <div class="todo-tabs">
+                    <button class="todo-tab active" data-tab="packing">Bavul</button>
+                    <button class="todo-tab" data-tab="explore">Gezilecekler</button>
+                </div>
+            </div>
 
-// Set initial states
-gsap.set(['.hero-subtitle', '.hero-title', '.hero-desc', '.hero-btn'], { y: 30 });
+            <div class="todo-input-wrap">
+                <input type="text" class="todo-input" id="todoInput" placeholder="Listenize yeni bir öğe ekleyin...">
+                <button class="todo-add-btn" id="todoAddBtn">
+                    <i data-lucide="plus"></i>
+                </button>
+            </div>
 
-// Flowers entrance animation
-gsap.to('.flower-1', { opacity: 1, x: 0, duration: 1.5, delay: 0.5, ease: 'power2.out' });
-gsap.set('.flower-1', { x: -120 });
-gsap.to('.flower-2', { opacity: 1, x: 0, duration: 1.5, delay: 0.7, ease: 'power2.out' });
-gsap.set('.flower-2', { x: 120 });
-gsap.to('.flower-3', { opacity: 1, x: 0, duration: 1.3, delay: 1.0, ease: 'power2.out' });
-gsap.set('.flower-3', { x: -100 });
-gsap.to('.flower-4', { opacity: 1, x: 0, duration: 1.3, delay: 1.2, ease: 'power2.out' });
-gsap.set('.flower-4', { x: 100 });
-gsap.to('.flower-5', { opacity: 1, x: 0, rotation: 5, duration: 1.4, delay: 1.4, ease: 'power2.out' });
-gsap.set('.flower-5', { x: -80 });
-gsap.to('.flower-6', { opacity: 1, x: 0, rotation: -5, duration: 1.4, delay: 1.6, ease: 'power2.out' });
-gsap.set('.flower-6', { x: 80 });
-gsap.to('.flower-7', { opacity: 1, y: 0, rotation: 10, duration: 1.5, delay: 1.8, ease: 'power2.out' });
-gsap.set('.flower-7', { y: 60 });
-gsap.to('.flower-8', { opacity: 1, y: 0, rotation: -8, duration: 1.5, delay: 2.0, ease: 'power2.out' });
-gsap.set('.flower-8', { y: -60 });
+            <ul class="todo-list" id="todoList"></ul>
+        </div>
+    </section>
 
-// Landscape text
-gsap.to('.landscape-text', {
-    opacity: 1, y: 0, duration: 1.2,
-    scrollTrigger: { trigger: '.landscape', start: 'top 70%' }
-});
-gsap.set('.landscape-text', { y: 40 });
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="footer-logo">BALI</div>
+        <p>Lüks Konsept Tasarım &copy; 2026</p>
+        <p style="margin-top:0.5rem; font-size:0.75rem; opacity:0.4;">made by Elif Sena Soysal</p>
+    </footer>
 
-// Step cards
-gsap.utils.toArray('.step-card').forEach((card, i) => {
-    gsap.to(card, {
-        opacity: 1, y: 0, duration: 0.8, delay: i * 0.2,
-        scrollTrigger: { trigger: card, start: 'top 85%' }
-    });
-    gsap.set(card, { y: 40 });
-});
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
 
-/* ========== TODO LIST ========== */
-const defaultItems = {
-    bavul: [
-        { text: 'Güneş kremi SPF 50+', done: false },
-        { text: 'Yüzme gözlüğü & mayo', done: false },
-        { text: 'Hafif yazlık kıyafetler', done: false },
-        { text: 'Pasaport & vize belgeleri', done: false },
-        { text: 'Şarj aleti & adaptör', done: false }
-    ],
-    gezilecek: [
-        { text: 'Tanah Lot Tapınağı', done: false },
-        { text: 'Ubud Pirinç Terasları', done: false },
-        { text: 'Uluwatu Gün Batımı', done: false },
-        { text: 'Tegallalang Ormanı', done: false },
-        { text: 'Nusa Penida Günübirlik', done: false }
-    ]
-};
+        /* ========== BALI TIME ========== */
+        function updateBaliTime()
+        {
+            const now = new Date();
+            const bali = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Makassar' }));
+            const h = String(bali.getHours()).padStart(2, '0');
+            const m = String(bali.getMinutes()).padStart(2, '0');
+            const timeSpan = document.querySelector('#baliTime span');
+            if (timeSpan) timeSpan.textContent = h + ':' + m;
+        }
+        updateBaliTime();
+        setInterval(updateBaliTime, 30000);
 
-let currentTab = 'bavul';
-let todos = JSON.parse(localStorage.getItem('baliTodos')) || JSON.parse(JSON.stringify(defaultItems));
+        /* ========== NAVBAR ========== */
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
 
-function saveTodos() { localStorage.setItem('baliTodos', JSON.stringify(todos)); }
+        window.addEventListener('scroll', () =>
+        {
+            if (window.scrollY > 50)
+            {
+                navbar.classList.add('scrolled');
+            } else
+            {
+                navbar.classList.remove('scrolled');
+            }
+        });
 
-function renderTodos() {
-    const list = document.getElementById('todoList');
-    const items = todos[currentTab] || [];
-    if (!items.length) {
-        list.innerHTML = '<li class="todo-empty">Henüz öğe eklenmedi 🌺</li>';
-        return;
-    }
-    list.innerHTML = items.map((item, i) => 
-        '<li class="todo-item' + (item.done ? ' done' : '') + '">' +
-        '<div class="todo-checkbox' + (item.done ? ' checked' : '') + '" data-i="' + i + '"></div>' +
-        '<span class="todo-text">' + item.text + '</span>' +
-        '<button class="todo-delete" data-i="' + i + '">✕</button></li>'
-    ).join('');
-}
+        hamburger.addEventListener('click', () =>
+        {
+            navLinks.classList.toggle('open');
+            const icon = navLinks.classList.contains('open') ? 'x' : 'menu';
+            hamburger.innerHTML = `<i data-lucide="${icon}"></i>`;
+            lucide.createIcons();
+        });
 
-document.getElementById('todoList').addEventListener('click', (e) => {
-    const idx = parseInt(e.target.dataset.i);
-    if (isNaN(idx)) return;
-    if (e.target.classList.contains('todo-checkbox') || e.target.closest('.todo-checkbox')) {
-        todos[currentTab][idx].done = !todos[currentTab][idx].done;
-    } else if (e.target.classList.contains('todo-delete')) {
-        todos[currentTab].splice(idx, 1);
-    }
-    saveTodos(); renderTodos();
-});
+        /* ========== GSAP ANIMATIONS ========== */
+        gsap.registerPlugin(ScrollTrigger);
 
-document.querySelectorAll('.todo-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-        document.querySelectorAll('.todo-tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        currentTab = tab.dataset.tab;
+        // Initial Hero Entrance
+        const tl = gsap.timeline();
+        tl.fromTo('.hero-subtitle', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.2 })
+            .fromTo('.hero-title', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }, '-=0.6')
+            .fromTo('.hero-desc', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.8')
+            .fromTo('.btn-primary', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6');
+
+        // Flowers Entrance Animation
+        gsap.set('.flower-1', { x: -120 });
+        gsap.to('.flower-1', { opacity: 1, x: 0, duration: 1.5, delay: 0.5, ease: 'power2.out' });
+        gsap.set('.flower-6', { x: 120 });
+        gsap.to('.flower-6', { opacity: 1, x: 0, duration: 1.5, delay: 0.7, ease: 'power2.out' });
+        gsap.set('.flower-3', { x: -100 });
+        gsap.to('.flower-3', { opacity: 1, x: 0, duration: 1.3, delay: 1.0, ease: 'power2.out' });
+        gsap.set('.flower-4', { x: 100 });
+        gsap.to('.flower-4', { opacity: 1, x: 0, duration: 1.3, delay: 1.2, ease: 'power2.out' });
+        gsap.set('.flower-5', { x: -80 });
+        gsap.to('.flower-5', { opacity: 1, x: 0, rotation: 5, duration: 1.4, delay: 1.4, ease: 'power2.out' });
+        gsap.set('.flower-2', { x: 80 });
+        gsap.to('.flower-2', { opacity: 1, x: 0, rotation: -5, duration: 1.4, delay: 1.6, ease: 'power2.out' });
+        gsap.set('.flower-7', { y: 60 });
+        gsap.to('.flower-7', { opacity: 1, y: 0, rotation: 10, duration: 1.5, delay: 1.8, ease: 'power2.out' });
+        gsap.set('.flower-8', { y: -60 });
+        gsap.to('.flower-8', { opacity: 1, y: 0, rotation: -8, duration: 1.5, delay: 2.0, ease: 'power2.out' });
+
+        // Reveal Elements on Scroll
+        gsap.utils.toArray('.gs-reveal').forEach(elem =>
+        {
+            gsap.fromTo(elem,
+                { opacity: 0, y: 40 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.2,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: 'top 85%',
+                    }
+                }
+            );
+        });
+
+        // Landscape Parallax Image
+        gsap.to('.landscape-img', {
+            yPercent: 20,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '.landscape',
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true
+            }
+        });
+
+        /* ========== TODO LIST LOGIC ========== */
+        const defaultItems = {
+            packing: [
+                { text: 'Organik Güneş Kremi SPF 50+', done: false },
+                { text: 'Keten Tatil Kıyafetleri', done: false },
+                { text: 'Uluslararası Adaptör', done: false },
+                { text: 'Pasaport & Vize Belgeleri', done: false }
+            ],
+            explore: [
+                { text: 'Ubud Orman Salıncağı Rezervasyonu', done: false },
+                { text: 'Tanah Lot Gün Batımı Turu', done: false },
+                { text: 'Ayana Resort Spa Randevusu', done: false }
+            ]
+        };
+
+        let currentTab = 'packing';
+        let todos = JSON.parse(localStorage.getItem('baliLuxuryTodos')) || JSON.parse(JSON.stringify(defaultItems));
+
+        function saveTodos()
+        {
+            localStorage.setItem('baliLuxuryTodos', JSON.stringify(todos));
+        }
+
+        function renderTodos()
+        {
+            const list = document.getElementById('todoList');
+            const items = todos[currentTab] || [];
+
+            if (!items.length)
+            {
+                list.innerHTML = '<li class="todo-empty">Listeniz şu an boş. Yukarıdan yeni bir öğe ekleyin.</li>';
+                lucide.createIcons();
+                return;
+            }
+
+            list.innerHTML = items.map((item, i) => `
+            <li class="todo-item ${item.done ? 'done' : ''}">
+                <div class="todo-checkbox ${item.done ? 'checked' : ''}" data-i="${i}">
+                    <i data-lucide="check"></i>
+                </div>
+                <span class="todo-text">${item.text}</span>
+                <button class="todo-delete" data-i="${i}">
+                    <i data-lucide="trash-2"></i>
+                </button>
+            </li>
+        `).join('');
+
+            lucide.createIcons();
+        }
+
+        document.getElementById('todoList').addEventListener('click', (e) =>
+        {
+            const target = e.target.closest('.todo-checkbox') || e.target.closest('.todo-delete');
+            if (!target) return;
+
+            const idx = parseInt(target.dataset.i);
+            if (isNaN(idx)) return;
+
+            if (target.classList.contains('todo-checkbox'))
+            {
+                todos[currentTab][idx].done = !todos[currentTab][idx].done;
+            } else if (target.classList.contains('todo-delete'))
+            {
+                todos[currentTab].splice(idx, 1);
+            }
+
+            saveTodos();
+            renderTodos();
+        });
+
+        document.querySelectorAll('.todo-tab').forEach(tab =>
+        {
+            tab.addEventListener('click', () =>
+            {
+                document.querySelectorAll('.todo-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentTab = tab.dataset.tab;
+                renderTodos();
+            });
+        });
+
+        function addTodo()
+        {
+            const input = document.getElementById('todoInput');
+            const val = input.value.trim();
+            if (!val) return;
+
+            if (!todos[currentTab]) todos[currentTab] = [];
+            todos[currentTab].push({ text: val, done: false });
+            input.value = '';
+
+            saveTodos();
+            renderTodos();
+        }
+
+        document.getElementById('todoAddBtn').addEventListener('click', addTodo);
+        document.getElementById('todoInput').addEventListener('keydown', (e) =>
+        {
+            if (e.key === 'Enter') addTodo();
+        });
+
+        // Initial Render
         renderTodos();
-    });
-});
 
-function addTodo() {
-    const input = document.getElementById('todoInput');
-    const val = input.value.trim();
-    if (!val) return;
-    if (!todos[currentTab]) todos[currentTab] = [];
-    todos[currentTab].push({ text: val, done: false });
-    input.value = '';
-    saveTodos(); renderTodos();
-}
-document.getElementById('todoAddBtn').addEventListener('click', addTodo);
-document.getElementById('todoInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') addTodo(); });
-
-renderTodos();
-</script>
+    </script>
 </body>
+
 </html>
