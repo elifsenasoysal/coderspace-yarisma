@@ -11,10 +11,11 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Felipa&display=swap" rel="stylesheet">
     <!-- GSAP for Smooth Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -244,18 +245,55 @@
         }
 
         @media (max-width: 768px) {
+
             /* Mobilde çiçeklerin metinle çakışmasını önlemek için yerlerini buradan değiştirebilirsiniz */
-            .flower-1 { width: 300px; top: -5%; left: -5%; }
-            .flower-2 { width: 300px; top: -15%; right: -10%; }
-            
-            .flower-3 { width: 250px; bottom: -2%; left: -3%; }
-            .flower-4 { width: 250px; bottom: -5%; right: -3%; }
-            
-            .flower-5 { width: 200px; top: 57%; left: -1%; }
-            .flower-6 { width: 200px; top: 65%; right: -6%; }
-            
-            .flower-7 { width: 200px; bottom: 25%; right: 8%; }
-            .flower-8 { width: 200px; top: 15%; left: 5%; }
+            .flower-1 {
+                width: 300px;
+                top: -5%;
+                left: -5%;
+            }
+
+            .flower-2 {
+                width: 300px;
+                top: -15%;
+                right: -10%;
+            }
+
+            .flower-3 {
+                width: 250px;
+                bottom: -2%;
+                left: -3%;
+            }
+
+            .flower-4 {
+                width: 250px;
+                bottom: -5%;
+                right: -3%;
+            }
+
+            .flower-5 {
+                width: 200px;
+                top: 57%;
+                left: -1%;
+            }
+
+            .flower-6 {
+                width: 200px;
+                top: 65%;
+                right: -6%;
+            }
+
+            .flower-7 {
+                width: 200px;
+                bottom: 25%;
+                right: 8%;
+            }
+
+            .flower-8 {
+                width: 200px;
+                top: 15%;
+                left: 5%;
+            }
         }
 
         /* Abstract Liquid Glass Orbs */
@@ -720,6 +758,313 @@
             color: var(--accent-gold);
             width: 16px;
             height: 16px;
+        }
+
+        /* MUST TRY LOCAL DISHES SECTION */
+        .local-dishes {
+            min-height: 100vh;
+            background: var(--bg-light);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            z-index: 5;
+        }
+
+        .dishes-center {
+            position: relative;
+            text-align: center;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -250px;
+        }
+
+        .real-plate-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 -20px;
+            z-index: 12;
+        }
+
+        .real-plate {
+            width: 350px;
+            height: auto;
+            display: block;
+
+        }
+
+        .dishes-title {
+            position: absolute;
+            top: -40px;
+            /* Tabağın üstüne çıkardım */
+            left: 50%;
+            transform: translateX(-50%);
+            /* Sadece yatayda ortalıyoruz */
+            font-family: 'Felipa', cursive;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 1.2;
+            text-shadow: 0 4px 15px rgba(255, 255, 255, 0.8), 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 150%;
+            /* Yazı genişleyebilsin diye */
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .drag-hint {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            color: #211f1c;
+            letter-spacing: 1px;
+            text-align: center;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* Mobilde sürükleme olmadığı için ipucunu gizliyoruz */
+        @media (max-width: 992px) {
+            .drag-hint {
+                display: none;
+            }
+        }
+
+        .real-cutlery {
+            width: 80px;
+            height: auto;
+            filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.15));
+            z-index: 11;
+        }
+
+        .real-fork {
+            transform: rotate(-15deg);
+        }
+
+        .real-spoon {
+            transform: rotate(15deg);
+        }
+
+        .dish-item {
+            position: absolute;
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            border: 4px solid #f6de7e;
+            transition: transform 0.4s ease;
+            /* overflow ve background silindi ki resim dışarı taşsın ve şeffaf olsun */
+        }
+
+        .dish-item:hover {
+            transform: scale(1.05);
+            z-index: 20;
+        }
+
+        .dish-item img {
+            width: 115%;
+            /* Resim çizgiden dışarı taşsın diye büyütüldü */
+            height: 115%;
+            object-fit: contain;
+            display: block;
+            /* GSAP ile çakışmaması için transform yerine absolute positioning kullanıyoruz */
+            position: absolute;
+            top: -7.5%;
+            left: -7.5%;
+            z-index: 2;
+        }
+
+        @media (min-width: 993px) {
+            .dish-item img {
+                cursor: grab;
+            }
+
+            .dish-item img:active {
+                cursor: grabbing;
+            }
+        }
+
+        /* YEMEK İSİMLERİ (YAY ŞEKLİNDE SVG) */
+        .dish-name-svg {
+            position: absolute;
+            /* YAZIYI YEMEKTEN UZAKLAŞTIRMAK İÇİN BURAYI DEĞİŞTİRİN (Örn: -45px daha da uzaklaştırır, -10px yaklaştırır) */
+            bottom: -45px;
+            left: -10%;
+            width: 120%;
+            height: 80px;
+            overflow: visible;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .dish-name-svg text {
+            font-family: 'Cormorant', serif;
+            font-size: 24px;
+            /* YAZININ KALINLIĞINI BURADAN DEĞİŞTİRİN (700 en kalın, 400 normaldir) */
+            font-weight: 700;
+            fill: #d8a044;
+            letter-spacing: 6px;
+            /* Boşluk artırıldı */
+            word-spacing: 12px;
+            /* Kelimeler arası boşluk eklendi */
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* BENİM FAVORİM YAZISI */
+        .favorite-note {
+            position: absolute;
+            top: -40px;
+            left: -140px;
+            pointer-events: none;
+            z-index: 10;
+            transform: rotate(-5deg);
+        }
+
+        .favorite-note span {
+            font-family: 'Felipa', cursive;
+            font-size: 1.6rem;
+            color: #d8a044;
+            display: block;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .favorite-arrow {
+            width: 60px;
+            height: 40px;
+            margin-left: 60px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* --- BOYUT VE KONUM DEĞİŞTİRME ALANI --- */
+        /* Resimlerin boyutlarını aşağıdaki "width" ve "height" değerlerinden değiştirebilirsiniz */
+        .dish-1 {
+            top: 10%;
+            left: 10%;
+            width: 300px;
+            height: 300px;
+            border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+            /* Same as dish-4 */
+        }
+
+        .dish-1 img {
+            width: 90%;
+            height: 90%;
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            /* Resim çemberin içinde kalsın ve çember net görünsün diye */
+        }
+
+        .dish-2 {
+            top: 10%;
+            right: 10%;
+            width: 260px;
+            height: 260px;
+            border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
+        }
+
+        .dish-3 {
+            bottom: 10%;
+            left: 10%;
+            width: 310px;
+            height: 310px;
+            border-radius: 40% 60% 50% 50% / 50% 50% 60% 40%;
+        }
+
+        .dish-4 {
+            bottom: 5%;
+            right: 10%;
+            width: 310px;
+            height: 310px;
+            border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+        }
+
+        .dish-5 {
+            bottom: 5%;
+            right: 40%;
+            width: 290px;
+            height: 290px;
+            border-radius: 50% 50% 40% 60% / 40% 60% 50% 50%;
+        }
+
+        /* Hand drawn arrows */
+        .dish-arrow {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            opacity: 0.7;
+            stroke: #f6de7e;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .arrow-1 {
+            top: 35%;
+            left: 30%;
+            transform: rotate(15deg);
+        }
+
+        .arrow-2 {
+            top: 35%;
+            right: 30%;
+            transform: rotate(75deg);
+        }
+
+        .arrow-3 {
+            bottom: 35%;
+            left: 30%;
+            transform: rotate(-30deg);
+        }
+
+        .arrow-4 {
+            bottom: 35%;
+            right: 30%;
+            transform: rotate(-120deg);
+        }
+
+        .arrow-5 {
+            bottom: 25%;
+            right: 45%;
+            transform: rotate(-75deg);
+            height: 60px;
+            width: 60px;
+        }
+
+        @media (max-width: 1200px) {
+            .local-dishes {
+                min-height: auto;
+                flex-direction: column;
+                padding: 6rem 1rem;
+                gap: 3rem;
+            }
+
+            .dishes-center {
+                margin: 4rem 0;
+            }
+
+            .dish-item {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                bottom: auto;
+                margin: 1rem auto;
+            }
+
+            .dish-arrow {
+                display: none;
+            }
         }
 
         /* TODO LIST MINIMAL */
@@ -1187,6 +1532,73 @@
         </div>
     </section>
 
+    <!-- MUST TRY LOCAL DISHES -->
+    <section class="local-dishes" id="dishes">
+        <div class="dishes-center gs-reveal">
+            <img src="images/fork .png" alt="Fork" class="real-cutlery real-fork">
+            <div class="real-plate-wrapper">
+                <img src="images/plate.png" alt="Plate" class="real-plate">
+                <div class="dishes-title">
+                    MUST TRY<br>LOCAL DISHES
+                </div>
+                <div class="drag-hint">
+                    yemeğini tabağına<br>sürüklemeyi dene :)
+                </div>
+            </div>
+            <img src="images/spoon.png" alt="Spoon" class="real-cutlery real-spoon">
+        </div>
+
+        <!-- Food Images -->
+        <div class="dish-item dish-1 gs-reveal">
+            <img src="images/MieGoreng.png" alt="Mie Goreng">
+            <svg viewBox="0 0 250 100" class="dish-name-svg">
+                <path id="curve-1" d="M 10,20 A 140,80 0 0,0 240,20" fill="none" /><text>
+                    <textPath href="#curve-1" startOffset="50%" text-anchor="middle">MIE GORENG</textPath>
+                </text>
+            </svg>
+        </div>
+        <div class="dish-item dish-2 gs-reveal">
+            <!-- Favorite Note -->
+            <div class="favorite-note">
+                <span>bu benim favorim</span>
+                <svg viewBox="0 0 60 40" class="favorite-arrow">
+                    <path d="M10,10 Q30,5 50,30" fill="none" stroke="#d8a044" stroke-width="2.5" stroke-linecap="round"/>
+                    <polyline points="40,32 50,30 48,20" fill="none" stroke="#d8a044" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <img src="images/nasiGoreng.png" alt="Nasi Goreng">
+            <svg viewBox="0 0 250 100" class="dish-name-svg">
+                <path id="curve-2" d="M 10,20 A 140,80 0 0,0 240,20" fill="none" /><text>
+                    <textPath href="#curve-2" startOffset="50%" text-anchor="middle">NASI GORENG</textPath>
+                </text>
+            </svg>
+        </div>
+        <div class="dish-item dish-3 gs-reveal">
+            <img src="images/Rendang.png" alt="Rendang">
+            <svg viewBox="0 0 250 100" class="dish-name-svg">
+                <path id="curve-3" d="M 10,20 A 140,80 0 0,0 240,20" fill="none" /><text>
+                    <textPath href="#curve-3" startOffset="50%" text-anchor="middle">RENDANG</textPath>
+                </text>
+            </svg>
+        </div>
+        <div class="dish-item dish-4 gs-reveal">
+            <img src="images/SateAyam.png" alt="Sate Ayam">
+            <svg viewBox="0 0 250 100" class="dish-name-svg">
+                <path id="curve-4" d="M 10,20 A 140,80 0 0,0 240,20" fill="none" /><text>
+                    <textPath href="#curve-4" startOffset="50%" text-anchor="middle">SATE AYAM</textPath>
+                </text>
+            </svg>
+        </div>
+        <div class="dish-item dish-5 gs-reveal">
+            <img src="images/Bakso.png" alt="Bakso">
+            <svg viewBox="0 0 250 100" class="dish-name-svg">
+                <path id="curve-5" d="M 10,20 A 140,80 0 0,0 240,20" fill="none" /><text>
+                    <textPath href="#curve-5" startOffset="50%" text-anchor="middle">BAKSO</textPath>
+                </text>
+            </svg>
+        </div>
+    </section>
+
     <!-- TODO LIST -->
     <section class="todo-section" id="todo">
         <div class="todo-container gs-reveal">
@@ -1418,6 +1830,35 @@
 
         // Initial Render
         renderTodos();
+
+        /* ========== DRAGGABLE FOOD (DESKTOP ONLY) ========== */
+        if (window.innerWidth > 992)
+        {
+            let highestZ = 100;
+            const foodDraggables = Draggable.create('.dish-item img', {
+                type: 'x,y',
+                bounds: '.local-dishes',
+                onPress: function ()
+                {
+                    highestZ++;
+                    this.target.style.zIndex = highestZ;
+                    // Tıklanan resmin çerçevesini de üste al ki diğer çerçevelerin altında ezilmesin
+                    if (this.target.parentElement)
+                    {
+                        this.target.parentElement.style.zIndex = highestZ;
+                    }
+
+                    // Başka bir yemeğe tıklandığında, diğer tüm yemekleri yavaşça eski yerine gönder
+                    foodDraggables.forEach(drag =>
+                    {
+                        if (drag !== this)
+                        {
+                            gsap.to(drag.target, { x: 0, y: 0, duration: 0.6, ease: "back.out(1.2)" });
+                        }
+                    });
+                }
+            });
+        }
 
     </script>
 </body>
