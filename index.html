@@ -681,7 +681,7 @@
 
             .about-flower {
                 left: -2%;
-                width: 240px;
+                width: 150px;
                 bottom: 2%;
             }
         }
@@ -1096,6 +1096,34 @@
 
             .dish-arrow {
                 display: none;
+            }
+
+            .favorite-note {
+                left: -20px;
+                top: -50px;
+                transform: rotate(-5deg);
+            }
+
+            .real-plate {
+                width: 280px;
+            }
+
+            .real-cutlery {
+                position: absolute;
+                width: 100px;
+                z-index: 13;
+            }
+
+            .real-fork {
+                left: 15%;
+                top: 50%;
+                transform: translateY(-50%) rotate(-20deg);
+            }
+
+            .real-spoon {
+                right: 15%;
+                top: 50%;
+                transform: translateY(-50%) rotate(20deg);
             }
         }
 
@@ -1520,6 +1548,7 @@
             padding-bottom: 5px;
             border-bottom: 2px solid #f6de7e;
             transition: var(--transition-smooth);
+            cursor: pointer;
         }
 
         .btn-text:hover {
@@ -1714,7 +1743,7 @@
                 </div>
                 <h3>Kültür</h3>
                 <p>Uluwatu Tapınağı'nda büyüleyici gün batımını ve dansları izleyin.</p>
-                <a href="#" class="btn-text">DETAYLARI GÖR</a>
+                <span class="btn-text">DETAYLARI GÖR</span>
             </div>
 
 
@@ -1726,7 +1755,7 @@
                 </div>
                 <h3>Macera</h3>
                 <p>Batur Dağı'nda bulutların üzerindeki gün doğumuna tanık olun.</p>
-                <a href="#" class="btn-text">DETAYLARI GÖR</a>
+                <span class="btn-text">DETAYLARI GÖR</span>
             </div>
 
 
@@ -1738,7 +1767,7 @@
                 </div>
                 <h3>Aktivite</h3>
                 <p>Bali'nin ünlü dalgalarında sörf yaparak özgürlüğün tadını çıkarın.</p>
-                <a href="#" class="btn-text">DETAYLARI GÖR</a>
+                <span class="btn-text">DETAYLARI GÖR</span>
             </div>
         </div>
     </section>
