@@ -7,29 +7,31 @@
     <title>Bali — Luxury Tropical Retreat</title>
     <meta name="description"
         content="Bali'nin büyüleyici güzelliklerini keşfedin. Lüks, huzur ve eşsiz bir doğa deneyimi.">
-    <!-- Google Fonts: Cormorant & Montserrat -->
+    
+    <link rel="preload" href="images/forest.jpg" as="image">
+    <link rel="preload" href="images/sea.jpg" as="image">
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&family=Caveat:wght@400;700&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Felipa&display=swap" rel="stylesheet">
-    <!-- GSAP for Smooth Animations -->
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
-    <!-- Lucide Icons -->
+    
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         :root {
-            /* Luxury Tropical Palette */
+            
             --bg-light: #FAFAF9;
-            /* Warm Stone/White */
+            
             --bg-dark: #1C2B23;
-            /* Deep Forest Green */
+            
             --accent-gold: #f6de7e;
-            /* Vibrant Yellow */
+            
             --accent-hover: #FDE047;
-            /* Lighter Vibrant Yellow */
+            
             --text-dark: #0C0A09;
             --text-light: #F5F2EB;
             --glass-bg: rgba(250, 250, 249, 0.6);
@@ -65,7 +67,7 @@
             font-family: 'Cormorant', serif;
         }
 
-        /* LIQUID GLASS NAVBAR */
+        
         .navbar {
             position: fixed;
             top: 1.5rem;
@@ -165,7 +167,7 @@
             color: var(--bg-dark);
         }
 
-        /* HERO SECTION */
+        
         .hero {
             position: relative;
             min-height: 100vh;
@@ -177,7 +179,7 @@
             background: var(--bg-light);
         }
 
-        /* FLOWER DECORATIONS */
+        
         .flower {
             position: absolute;
             z-index: 5;
@@ -246,7 +248,7 @@
 
         @media (max-width: 768px) {
 
-            /* Mobilde çiçeklerin metinle çakışmasını önlemek için yerlerini buradan değiştirebilirsiniz */
+            
             .flower-1 {
                 width: 300px;
                 top: -5%;
@@ -296,7 +298,7 @@
             }
         }
 
-        /* Abstract Liquid Glass Orbs */
+        
         .glass-orb {
             display: none;
             position: absolute;
@@ -410,7 +412,7 @@
             box-shadow: 0 10px 20px rgba(250, 204, 21, 0.3);
         }
 
-        /* MARQUEE BANNER */
+        
         .marquee-container {
             background-color: var(--accent-gold);
             color: var(--bg-dark);
@@ -451,7 +453,7 @@
             }
         }
 
-        /* LANDSCAPE PARALLAX */
+        
         .landscape {
             position: relative;
             width: 100%;
@@ -512,7 +514,7 @@
             color: var(--accent-gold);
         }
 
-        /* ABOUT BALI SECTION (CUSTOM DESIGN) */
+        
         .about-bali {
             display: flex;
             min-height: 70vh;
@@ -525,7 +527,7 @@
         .about-left {
             width: 50%;
             padding: 10rem 4rem 4rem 10%;
-            /* Shifted down slightly */
+            
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -684,7 +686,7 @@
             }
         }
 
-        /* PLANNING - GLASSMORPHISM BENTO GRID */
+        
         .planning {
             padding: 5rem 2rem;
             background: var(--bg-dark);
@@ -790,7 +792,7 @@
             height: 16px;
         }
 
-        /* MUST TRY LOCAL DISHES SECTION */
+        
         .local-dishes {
             min-height: 100vh;
             background: var(--bg-light);
@@ -832,11 +834,11 @@
         .dishes-title {
             position: absolute;
             top: -40px;
-            /* Tabağın üstüne çıkardım */
+            
             left: 50%;
             transform: translateX(-50%);
-            /* Sadece yatayda ortalıyoruz */
-            font-family: 'Felipa', cursive;
+            
+            font-family: 'Fredoka One', cursive;
             font-size: 2.5rem;
             font-weight: bold;
             color: #333;
@@ -845,7 +847,7 @@
             line-height: 1.2;
             text-shadow: 0 4px 15px rgba(255, 255, 255, 0.8), 0 2px 5px rgba(0, 0, 0, 0.1);
             width: 150%;
-            /* Yazı genişleyebilsin diye */
+            
             text-align: center;
             pointer-events: none;
         }
@@ -864,7 +866,7 @@
             pointer-events: none;
         }
 
-        /* Mobilde sürükleme olmadığı için ipucunu gizliyoruz */
+        
         @media (max-width: 992px) {
             .drag-hint {
                 display: none;
@@ -891,7 +893,7 @@
             border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
             border: 4px solid #f6de7e;
             transition: transform 0.4s ease;
-            /* overflow ve background silindi ki resim dışarı taşsın ve şeffaf olsun */
+            
         }
 
         .dish-item:hover {
@@ -901,11 +903,11 @@
 
         .dish-item img {
             width: 115%;
-            /* Resim çizgiden dışarı taşsın diye büyütüldü */
+            
             height: 115%;
             object-fit: contain;
             display: block;
-            /* GSAP ile çakışmaması için transform yerine absolute positioning kullanıyoruz */
+            
             position: absolute;
             top: -7.5%;
             left: -7.5%;
@@ -922,10 +924,10 @@
             }
         }
 
-        /* YEMEK İSİMLERİ (YAY ŞEKLİNDE SVG) */
+        
         .dish-name-svg {
             position: absolute;
-            /* YAZIYI YEMEKTEN UZAKLAŞTIRMAK İÇİN BURAYI DEĞİŞTİRİN (Örn: -45px daha da uzaklaştırır, -10px yaklaştırır) */
+            
             bottom: -45px;
             left: -10%;
             width: 120%;
@@ -938,17 +940,17 @@
         .dish-name-svg text {
             font-family: 'Cormorant', serif;
             font-size: 24px;
-            /* YAZININ KALINLIĞINI BURADAN DEĞİŞTİRİN (700 en kalın, 400 normaldir) */
+            
             font-weight: 700;
             fill: #d8a044;
             letter-spacing: 6px;
-            /* Boşluk artırıldı */
+            
             word-spacing: 12px;
-            /* Kelimeler arası boşluk eklendi */
+            
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* BENİM FAVORİM YAZISI */
+        
         .favorite-note {
             position: absolute;
             top: -40px;
@@ -974,15 +976,15 @@
             display: block;
         }
 
-        /* --- BOYUT VE KONUM DEĞİŞTİRME ALANI --- */
-        /* Resimlerin boyutlarını aşağıdaki "width" ve "height" değerlerinden değiştirebilirsiniz */
+        
+        
         .dish-1 {
             top: 10%;
             left: 10%;
             width: 300px;
             height: 300px;
             border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
-            /* Same as dish-4 */
+            
         }
 
         .dish-1 img {
@@ -991,7 +993,7 @@
             position: absolute;
             top: 5%;
             left: 5%;
-            /* Resim çemberin içinde kalsın ve çember net görünsün diye */
+            
         }
 
         .dish-2 {
@@ -1026,7 +1028,7 @@
             border-radius: 50% 50% 40% 60% / 40% 60% 50% 50%;
         }
 
-        /* Hand drawn arrows */
+        
         .dish-arrow {
             position: absolute;
             width: 80px;
@@ -1097,7 +1099,7 @@
             }
         }
 
-        /* TODO LIST MINIMAL */
+        
         .todo-section {
             padding: 5rem 2rem;
             background: var(--bg-light);
@@ -1296,7 +1298,7 @@
             font-style: italic;
         }
 
-        /* FOOTER */
+        
         footer {
             background: var(--bg-dark);
             color: rgba(245, 242, 235, 0.6);
@@ -1315,7 +1317,7 @@
             display: inline-block;
         }
 
-        /* MOBILE RESPONSIVE */
+        
         @media (max-width: 992px) {
             .bento-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -1399,11 +1401,11 @@
             }
         }
 
-        /* EXPERIENCES SECTION (IMAGE INSPIRED) */
+        
         .experiences {
             padding: 7rem 2rem;
             background-color: #b1b378;
-            /* Olive green from reference image */
+            
             position: relative;
             z-index: 5;
         }
@@ -1426,7 +1428,7 @@
         .btn-outline {
             padding: 0.8rem 1.5rem;
             background: #7a1a1a;
-            /* Dark red from reference */
+            
             color: #fff;
             text-decoration: none;
             border-radius: 50px;
@@ -1483,13 +1485,13 @@
             transition: transform 0.6s ease;
         }
 
-        /* Organic Shapes for Images */
+        
         .blob-shape {
             width: 100%;
             height: 100%;
             overflow: hidden;
             border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            /* Standardized blob */
+            
         }
 
         .exp-card h3 {
@@ -1560,7 +1562,7 @@
 
 <body>
 
-    <!-- NAVBAR -->
+    
     <nav class="navbar" id="navbar">
         <a href="#" class="nav-logo">
             <i data-lucide="leaf"></i> BALI
@@ -1579,22 +1581,22 @@
         </button>
     </nav>
 
-    <!-- HERO -->
+    
     <section class="hero" id="hero">
-        <!-- Liquid Glass Abstract Orbs -->
+        
         <div class="glass-orb orb-1"></div>
         <div class="glass-orb orb-2"></div>
         <div class="glass-orb orb-3"></div>
 
-        <!-- Flowers -->
-        <div class="flower flower-1"><img src="images/plant.png" alt="Tropik yapraklar"></div>
-        <div class="flower flower-6"><img src="images/plant2.png" alt="Tropik yapraklar"></div>
-        <div class="flower flower-3"><img src="images/flower.png" alt="Hibiskus çiçeği"></div>
-        <div class="flower flower-7"><img src="images/flower3.png" alt="Frangipani çiçeği"></div>
-        <div class="flower flower-5"><img src="images/beverage.png" alt="İçecek"></div>
-        <div class="flower flower-2"><img src="images/flower2.png" alt="Hibiskus çiçeği"></div>
-        <div class="flower flower-4"><img src="images/flowers.png" alt="Beyaz Frangipani"></div>
-        <div class="flower flower-8"><img src="images/flower4.png" alt="Pembe Plumeria"></div>
+        
+        <div class="flower flower-1"><img src="images/plant.png" alt="Tropik yapraklar" loading="lazy"></div>
+        <div class="flower flower-6"><img src="images/plant2.png" alt="Tropik yapraklar" loading="lazy"></div>
+        <div class="flower flower-3"><img src="images/flower.png" alt="Hibiskus çiçeği" loading="lazy"></div>
+        <div class="flower flower-7"><img src="images/flower3.png" alt="Frangipani çiçeği" loading="lazy"></div>
+        <div class="flower flower-5"><img src="images/beverage.png" alt="İçecek" loading="lazy"></div>
+        <div class="flower flower-2"><img src="images/flower2.png" alt="Hibiskus çiçeği" loading="lazy"></div>
+        <div class="flower flower-4"><img src="images/flowers.png" alt="Beyaz Frangipani" loading="lazy"></div>
+        <div class="flower flower-8"><img src="images/flower4.png" alt="Pembe Plumeria" loading="lazy"></div>
 
         <div class="hero-content gs-reveal">
             <p class="hero-subtitle">Mükemmel Tatil Sığınağı</p>
@@ -1607,10 +1609,10 @@
         </div>
     </section>
 
-    <!-- SCROLLING MARQUEE BANNER -->
+    
     <div class="marquee-container">
         <div class="marquee-content">
-            <!-- 1. Yarı -->
+            
             <span>
                 LÜKS KONAKLAMA <i data-lucide="sparkles"></i>
                 ÖZEL VİLLALAR <i data-lucide="sparkles"></i>
@@ -1625,7 +1627,7 @@
                 TROPİK CENNET <i data-lucide="sparkles"></i>
                 SPA & WELLNESS <i data-lucide="sparkles"></i>
             </span>
-            <!-- 2. Yarı (Kusursuz döngü için birebir kopya) -->
+            
             <span>
                 LÜKS KONAKLAMA <i data-lucide="sparkles"></i>
                 ÖZEL VİLLALAR <i data-lucide="sparkles"></i>
@@ -1643,7 +1645,7 @@
         </div>
     </div>
 
-    <!-- LANDSCAPE PARALLAX -->
+    
     <section class="landscape" id="landscape">
         <img src="images/forest.jpg" alt="Bali Rice Terraces" class="landscape-img" id="landscapeImg">
         <div class="landscape-overlay"></div>
@@ -1653,7 +1655,7 @@
         </div>
     </section>
 
-    <!-- ABOUT BALI SECTION -->
+    
     <section class="about-bali" id="about">
         <div class="about-left gs-reveal">
             <h2 class="about-title">Bali Hakkında</h2>
@@ -1671,10 +1673,11 @@
             <div class="about-stripes"></div>
             <div class="about-polaroid">
                 <i data-lucide="paperclip" class="polaroid-clip"></i>
-                <img src="images/sea.jpg" alt="Bali Sea" class="polaroid-img">
-                <img src="images/flower.png" alt="Flower Decoration" class="about-flower">
+                <img src="images/sea.jpg" alt="Bali Sea" class="polaroid-img" loading="lazy">
+                <img src="images/flower.png" alt="Flower Decoration" class="about-flower" loading="lazy">
                 <div class="flower-hint">
-                    <svg class="hint-arrow" viewBox="0 0 50 50" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <svg class="hint-arrow" viewBox="0 0 50 50" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M10,40 Q25,35 40,10" />
                         <polyline points="30,15 40,10 45,20" />
                     </svg>
@@ -1684,7 +1687,7 @@
         </div>
     </section>
 
-    <!-- BALI EXPERIENCES SECTION -->
+    
     <section class="experiences" id="experiences">
         <div class="exp-header gs-reveal">
             <h2>Neler Var, Neler Yok?</h2>
@@ -1692,11 +1695,11 @@
         </div>
 
         <div class="exp-grid">
-            <!-- Card 1 -->
+            
             <div class="exp-card">
                 <div class="exp-img-wrapper">
                     <div class="blob-shape">
-                        <img src="images/MajesticUluwatu TempleGolden HourCliffsideGlory.jpg" alt="Uluwatu Tapınağı">
+                        <img src="images/MajesticUluwatu TempleGolden HourCliffsideGlory.jpg" alt="Uluwatu Tapınağı" loading="lazy">
                     </div>
                 </div>
                 <h3>Kültür</h3>
@@ -1704,11 +1707,11 @@
                 <a href="#" class="btn-text">DETAYLARI GÖR</a>
             </div>
 
-            <!-- Card 2 -->
+            
             <div class="exp-card">
                 <div class="exp-img-wrapper">
                     <div class="blob-shape">
-                        <img src="images/MtBaturSunriseHike.jpg" alt="Batur Dağı">
+                        <img src="images/MtBaturSunriseHike.jpg" alt="Batur Dağı" loading="lazy">
                     </div>
                 </div>
                 <h3>Macera</h3>
@@ -1716,11 +1719,11 @@
                 <a href="#" class="btn-text">DETAYLARI GÖR</a>
             </div>
 
-            <!-- Card 3 -->
+            
             <div class="exp-card">
                 <div class="exp-img-wrapper">
                     <div class="blob-shape">
-                        <img src="images/bali-surf.jpg" alt="Sörf">
+                        <img src="images/bali-surf.jpg" alt="Sörf" loading="lazy">
                     </div>
                 </div>
                 <h3>Aktivite</h3>
@@ -1730,7 +1733,7 @@
         </div>
     </section>
 
-    <!-- PLANNING BENTO GRID -->
+    
     <section class="planning" id="planning">
         <div class="section-header gs-reveal">
             <p>Özel Deneyimler</p>
@@ -1773,14 +1776,14 @@
         </div>
     </section>
 
-    <!-- MUST TRY LOCAL DISHES -->
+    
     <section class="local-dishes" id="dishes">
         <div class="dishes-center gs-reveal">
             <img src="images/fork .png" alt="Fork" class="real-cutlery real-fork">
             <div class="real-plate-wrapper">
                 <img src="images/plate.png" alt="Plate" class="real-plate">
                 <div class="dishes-title">
-                    MUST TRY<br>LOCAL DISHES
+                    Must Try<br>LOCAL DISHES
                 </div>
                 <div class="drag-hint">
                     yemeğini tabağına<br>sürüklemeyi dene :)
@@ -1789,7 +1792,7 @@
             <img src="images/spoon.png" alt="Spoon" class="real-cutlery real-spoon">
         </div>
 
-        <!-- Food Images -->
+        
         <div class="dish-item dish-1 gs-reveal">
             <img src="images/MieGoreng.png" alt="Mie Goreng">
             <svg viewBox="0 0 250 100" class="dish-name-svg">
@@ -1799,7 +1802,7 @@
             </svg>
         </div>
         <div class="dish-item dish-2 gs-reveal">
-            <!-- Favorite Note -->
+            
             <div class="favorite-note">
                 <span>bu benim favorim</span>
                 <svg viewBox="0 0 60 40" class="favorite-arrow">
@@ -1842,7 +1845,7 @@
         </div>
     </section>
 
-    <!-- TODO LIST -->
+    
     <section class="todo-section" id="todo">
         <div class="todo-container gs-reveal">
             <div class="todo-header">
@@ -1864,7 +1867,7 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
+    
     <footer id="footer">
         <div class="footer-logo">BALI</div>
         <p>Lüks Konsept Tasarım &copy; 2026</p>
@@ -1872,10 +1875,9 @@
     </footer>
 
     <script>
-        // Initialize Lucide Icons
         lucide.createIcons();
 
-        /* ========== BALI TIME ========== */
+        
         function updateBaliTime()
         {
             const now = new Date();
@@ -1888,7 +1890,7 @@
         updateBaliTime();
         setInterval(updateBaliTime, 30000);
 
-        /* ========== NAVBAR ========== */
+        
         const navbar = document.getElementById('navbar');
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
@@ -1912,17 +1914,15 @@
             lucide.createIcons();
         });
 
-        /* ========== GSAP ANIMATIONS ========== */
+        
         gsap.registerPlugin(ScrollTrigger);
 
-        // Initial Hero Entrance
         const tl = gsap.timeline();
         tl.fromTo('.hero-subtitle', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.2 })
             .fromTo('.hero-title', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' }, '-=0.6')
             .fromTo('.hero-desc', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.8')
             .fromTo('.btn-primary', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6');
 
-        // Flowers Entrance Animation
         gsap.set('.flower-1', { x: -120 });
         gsap.to('.flower-1', { opacity: 1, x: 0, duration: 1.5, delay: 0.5, ease: 'power2.out' });
         gsap.set('.flower-6', { x: 120 });
@@ -1940,7 +1940,6 @@
         gsap.set('.flower-8', { y: -60 });
         gsap.to('.flower-8', { opacity: 1, y: 0, rotation: -8, duration: 1.5, delay: 2.0, ease: 'power2.out' });
 
-        // Reveal Elements on Scroll
         gsap.utils.toArray('.gs-reveal').forEach(elem =>
         {
             gsap.fromTo(elem,
@@ -1959,7 +1958,6 @@
         });
 
 
-        // Landscape Parallax Image
         gsap.to('.landscape-img', {
             yPercent: 20,
             ease: 'none',
@@ -1971,7 +1969,7 @@
             }
         });
 
-        /* ========== TODO LIST LOGIC ========== */
+        
         const defaultItems = {
             packing: [
                 { text: 'Organik Güneş Kremi SPF 50+', done: false },
@@ -2073,10 +2071,9 @@
             if (e.key === 'Enter') addTodo();
         });
 
-        // Initial Render
         renderTodos();
 
-        /* ========== DRAGGABLE FOOD (DESKTOP ONLY) ========== */
+        
         if (window.innerWidth > 992)
         {
             let highestZ = 100;
@@ -2087,13 +2084,11 @@
                 {
                     highestZ++;
                     this.target.style.zIndex = highestZ;
-                    // Tıklanan resmin çerçevesini de üste al ki diğer çerçevelerin altında ezilmesin
                     if (this.target.parentElement)
                     {
                         this.target.parentElement.style.zIndex = highestZ;
                     }
 
-                    // Başka bir yemeğe tıklandığında, diğer tüm yemekleri yavaşça eski yerine gönder
                     foodDraggables.forEach(drag =>
                     {
                         if (drag !== this)
